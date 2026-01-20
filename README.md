@@ -2,8 +2,24 @@
 
 ### EfficientNetV2S with Confidence-Aware Inference (10 Market Varieties)
 
-![Stars](https://img.shields.io/github/stars/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-)
-![Forks](https://img.shields.io/github/forks/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-)
+[![GitHub stars](https://img.shields.io/github/stars/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties?style=social)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties?style=social)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/network)
+[![GitHub issues](https://img.shields.io/github/issues/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/pulls)
+[![License](https://img.shields.io/github/license/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](./LICENSE)
+
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)](https://www.tensorflow.org/)
+[![Model](https://img.shields.io/badge/Model-EfficientNetV2S-blueviolet)](#)
+[![Classes](https://img.shields.io/badge/Classes-10-blue)](#)
+[![Validation Accuracy](https://img.shields.io/badge/Val%20Accuracy-96.22%25-brightgreen)](#)
+[![Confidence Aware](https://img.shields.io/badge/Inference-Confidence%20Aware-success)](#)
+
+[![Platform](https://img.shields.io/badge/platform-Windows%20|%20macOS%20|%20Linux-blue)](#)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green)](#)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen)](#)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/blob/main/notebooks/01_data_exploration.ipynb)
 
 ---
 

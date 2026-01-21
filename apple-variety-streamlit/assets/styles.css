@@ -1,0 +1,105 @@
+/* Main container font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
+
+html,
+body,
+[class*="css"] {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
+
+/* Hide Streamlit default menu and footer */
+#MainMenu {
+  visibility: hidden;
+}
+footer {
+  visibility: hidden;
+}
+header {
+  visibility: hidden;
+}
+
+/* Card Style */
+.stCard {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+}
+
+/* Prediction Card */
+.prediction-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-left: 6px solid #ff3b30;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.prediction-card.success {
+  border-left-color: #34c759;
+}
+
+.prediction-card.warning {
+  border-left-color: #ffcc00;
+}
+
+.confidence-score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.class-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #86868b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Upload area customization */
+.stFileUploader > div > div {
+  border-radius: 12px;
+  border: 2px dashed #d2d2d7;
+  background-color: #fafafa;
+}
+
+.stFileUploader > div > div:hover {
+  border-color: #0071e3;
+}
+
+/* Custom Button */
+div.stButton > button {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #0071e3;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+div.stButton > button:hover {
+  background-color: #0077ed;
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Progress bars */
+.stProgress > div > div > div > div {
+  background-color: #34c759;
+}

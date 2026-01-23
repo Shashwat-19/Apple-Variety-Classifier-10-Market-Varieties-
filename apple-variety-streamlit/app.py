@@ -14,9 +14,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Constants
-MODEL_PATH = "model/apple_classifier.keras"
-LABELS_PATH = "labels.json"
+# Determine the directory of the current file (app.py)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Constants - using absolute paths based on BASE_DIR
+MODEL_PATH = os.path.join(BASE_DIR, "model", "apple_classifier_final.keras")
+LABELS_PATH = os.path.join(BASE_DIR, "labels.json")
+STYLES_PATH = os.path.join(BASE_DIR, "assets", "styles.css")
 CONFIDENCE_THRESHOLD = 0.75
 
 # --- Utils ---
@@ -73,7 +77,8 @@ def preprocess_image(image):
 # --- Main App ---
 
 # Inject CSS
-local_css("assets/styles.css")
+# Inject CSS
+local_css(STYLES_PATH)
 
 # Header
 st.markdown("""

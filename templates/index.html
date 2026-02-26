@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apple Variety Classifier | AI Assessment</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <!-- Phosphor Icons for modern sleek icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <div class="background-elements">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+      <header class="header">
+        <div class="badge">Professional Grade</div>
+        <h1>Apple Variety Classifier</h1>
+        <p>
+          Determine the market variety of apples with high precision using
+          EfficientNetV2S.
+        </p>
+      </header>
+
+      <div class="app-layout">
+        <!-- Left Column: Upload -->
+        <div class="card upload-card">
+          <h2><i class="ph ph-upload-simple"></i> Upload Specimen</h2>
+          <div class="drop-zone" id="drop-zone">
+            <input
+              type="file"
+              id="file-input"
+              accept="image/jpeg, image/png, image/webp"
+              hidden
+            />
+            <div class="drop-zone-content" id="drop-zone-content">
+              <i class="ph ph-image drop-icon"></i>
+              <p class="primary-text">Drag and drop an apple image here</p>
+              <p class="secondary-text">
+                or <span class="highlight">browse files</span>
+              </p>
+              <p class="file-hints">Supports JPG, PNG, WEBP</p>
+            </div>
+            <div class="preview-container hidden" id="preview-container">
+              <img id="image-preview" src="" alt="Image Preview" />
+              <button
+                class="remove-btn"
+                id="remove-btn"
+                aria-label="Remove image"
+              >
+                <i class="ph ph-x"></i>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-primary hidden" id="classify-btn" disabled>
+            <i class="ph ph-scan"></i> Classify Apple Variety
+          </button>
+        </div>
+
+        <!-- Right Column: Analysis -->
+        <div class="card analysis-card">
+          <h2><i class="ph ph-chart-bar"></i> Analysis</h2>
+
+          <div class="empty-state" id="empty-state">
+            <i class="ph ph-magnifying-glass"></i>
+            <p>Upload an image to start analysis</p>
+          </div>
+
+          <div class="loading-state hidden" id="loading-state">
+            <div class="spinner"></div>
+            <p>Analyzing texture and color patterns...</p>
+          </div>
+
+          <div class="results-container hidden" id="results-container">
+            <div class="main-result" id="main-result">
+              <div class="result-header">
+                <span class="label">Identified Variety</span>
+                <span class="confidence-badge" id="confidence-badge"
+                  >High Confidence</span
+                >
+              </div>
+              <h3 class="variety-name" id="variety-name">Apple 10</h3>
+              <div class="score-display">
+                <span class="score-label">Confidence:</span>
+                <span class="score-value" id="score-value">98.5%</span>
+              </div>
+              <div class="inference-time">
+                Inference time: <span id="inference-time">120.5ms</span>
+              </div>
+            </div>
+
+            <div class="warning-alert hidden" id="warning-alert">
+              <i class="ph ph-warning-circle"></i>
+              <div>
+                <strong>Low confidence detection.</strong>
+                <p>This might not be one of the known 10 varieties.</p>
+              </div>
+            </div>
+
+            <div class="top-predictions">
+              <h4>Top Probabilities</h4>
+              <ul class="prediction-list" id="prediction-list">
+                <!-- Injected by JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; 2026 DeepApple AI • Research Use Only</p>
+      </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

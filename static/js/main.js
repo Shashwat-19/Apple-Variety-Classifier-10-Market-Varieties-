@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const confidenceBadge = document.getElementById('confidence-badge');
     const inferenceTime = document.getElementById('inference-time');
     const warningAlert = document.getElementById('warning-alert');
-    const predictionList = document.getElementById('prediction-list');
 
     let currentFile = null;
+    let predictionsChart = null;
 
     // --- Event Listeners for file upload ---
 
@@ -165,36 +165,85 @@ document.addEventListener('DOMContentLoaded', () => {
             warningAlert.classList.remove('hidden');
         }
 
-        // Build top predictions list
-        predictionList.innerHTML = '';
-        data.top_predictions.forEach((pred, index) => {
-            const percentage = (pred.score * 100).toFixed(1);
-            const li = document.createElement('li');
-            li.className = 'prediction-item';
-            
-            // The top item gets the special glow color if it's the first one, handled via CSS :first-child
-            li.innerHTML = `
-                <div class="prediction-item-header">
-                    <span class="pred-name">${pred.class_name}</span>
-                    <span class="pred-score">${percentage}%</span>
-                </div>
-                <div class="prediction-bar-container">
-                    <div class="prediction-bar" style="width: 0%"></div>
-                </div>
-            `;
-            predictionList.appendChild(li);
+        // --- Render Chart.js Graph ---
+        const labels = data.top_predictions.map(pred => pred.class_name);
+        const values = data.top_predictions.map(pred => (pred.score * 100).toFixed(1));
+        
+        // Colors for chart
+        const mainColor = data.confidence >= 0.9 ? '#00ff88' : (data.confidence >= data.threshold ? '#ffcc00' : '#ff3b30');
+        const bgColors = values.map((_, i) => i === 0 ? mainColor : 'rgba(255, 255, 255, 0.2)');
+        const borderColors = values.map((_, i) => i === 0 ? mainColor : 'rgba(255, 255, 255, 0.5)');
 
-            // Animate bar
-            setTimeout(() => {
-                const bar = li.querySelector('.prediction-bar');
-                bar.style.width = `${percentage}%`;
-                if(index === 0) {
-                    // Match main color
-                    if (data.confidence >= 0.9) bar.style.background = 'var(--accent-glow)';
-                    else if (data.confidence >= data.threshold) bar.style.background = 'var(--accent-yellow)';
-                    else bar.style.background = 'var(--accent-red)';
+        const ctx = document.getElementById('predictionsChart').getContext('2d');
+        
+        if (predictionsChart) {
+            predictionsChart.destroy();
+        }
+
+        predictionsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Confidence (%)',
+                    data: values,
+                    backgroundColor: bgColors,
+                    borderColor: borderColors,
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    barThickness: 'flex',
+                    maxBarThickness: 40
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y', // horizontal bar chart
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(25, 25, 28, 0.9)',
+                        titleColor: '#86868b',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.x + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#86868b'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#fff',
+                            font: { family: "'Inter', sans-serif" }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
                 }
-            }, 100);
+            }
         });
 
         showState('results');

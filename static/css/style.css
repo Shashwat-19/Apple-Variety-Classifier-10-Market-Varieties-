@@ -492,41 +492,10 @@ h1 {
   font-weight: 500;
 }
 
-.prediction-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.prediction-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.prediction-item-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.prediction-bar-container {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.prediction-bar {
-  height: 100%;
-  background: var(--text-secondary);
-  border-radius: 3px;
-  transition: width 1s cubic-bezier(0.1, 0, 0.1, 1);
-}
-
-.prediction-item:first-child .prediction-bar {
-  background: var(--accent-glow);
+.chart-container {
+  position: relative;
+  height: 250px;
+  width: 100%;
 }
 
 /* Footer */

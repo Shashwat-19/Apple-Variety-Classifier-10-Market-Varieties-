@@ -17,6 +17,7 @@
     />
     <!-- Phosphor Icons for modern sleek icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="background-elements">
@@ -112,9 +113,9 @@
 
             <div class="top-predictions">
               <h4>Top Probabilities</h4>
-              <ul class="prediction-list" id="prediction-list">
-                <!-- Injected by JS -->
-              </ul>
+              <div class="chart-container">
+                  <canvas id="predictionsChart"></canvas>
+              </div>
             </div>
           </div>
         </div>

@@ -26,6 +26,7 @@ body {
   font-family: var(--font-family);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
@@ -125,6 +126,7 @@ h1 {
   letter-spacing: -1px;
   background: linear-gradient(180deg, #fff, #a1a1aa);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 12px;
 }
@@ -498,14 +500,6 @@ h1 {
   width: 100%;
 }
 
-/* Footer */
-.footer {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  padding-top: 20px;
-  border-top: 1px solid var(--card-border);
-}
 
 /* Animations */
 @keyframes fadeInDown {

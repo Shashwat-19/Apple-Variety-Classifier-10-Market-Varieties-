@@ -126,6 +126,20 @@
       </footer>
     </main>
 
+    <!-- Modern Error Toast Notification -->
+    <div id="toast-container" class="toast-container hidden">
+      <div class="toast-content">
+        <i class="ph-fill ph-warning-circle toast-icon"></i>
+        <div class="toast-message">
+          <h4 id="toast-title">Error</h4>
+          <p id="toast-desc">Something went wrong.</p>
+        </div>
+        <button id="toast-close" class="toast-close">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
 </html>

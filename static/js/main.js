@@ -21,6 +21,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentFile = null;
     let predictionsChart = null;
+    let toastTimeout = null;
+
+    // --- Toast Notification System ---
+    const toastContainer = document.getElementById('toast-container');
+    const toastTitle = document.getElementById('toast-title');
+    const toastDesc = document.getElementById('toast-desc');
+    const toastCloseBtn = document.getElementById('toast-close');
+
+    function showErrorToast(title, message) {
+        toastTitle.textContent = title;
+        toastDesc.textContent = message;
+        
+        toastContainer.classList.remove('hidden', 'hiding');
+        
+        if(toastTimeout) clearTimeout(toastTimeout);
+        
+        // Auto-hide after 5 seconds
+        toastTimeout = setTimeout(() => {
+            hideToast();
+        }, 5000);
+    }
+
+    function hideToast() {
+        toastContainer.classList.add('hiding');
+        setTimeout(() => {
+            toastContainer.classList.add('hidden');
+            toastContainer.classList.remove('hiding');
+        }, 300); // match animation duration
+    }
+
+    toastCloseBtn.addEventListener('click', hideToast);
 
     // --- Event Listeners for file upload ---
 
@@ -71,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleFile(file) {
         if (!file.type.match('image.*')) {
-            alert('Please select an image file (JPG, PNG, WEBP).');
+            showErrorToast("Invalid File Type", "Please select a valid image file (JPG, PNG, WEBP).");
             return;
         }
 
@@ -130,7 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error:', error);
-            alert(`Error: ${error.message}`);
+            
+            // Check if it's the specific Chart.js error which means user has an outdated HTML cache
+            if (error.message.includes('getContext')) {
+                showErrorToast("Update Required", "We've added new visualizations! Please hard refresh your browser (Cmd+Shift+R or Ctrl+Shift+R) to load the new interface.");
+            } else {
+                showErrorToast("Analysis Failed", error.message || "An unexpected error occurred during prediction.");
+            }
+            
             showState('empty');
             classifyBtn.disabled = false;
         }

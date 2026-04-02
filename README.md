@@ -92,29 +92,36 @@ python3 app.py
 
 ---
 
-## 📄 License & Documentation
+## 📚 Documentation
 
-This project is open-source and distributed under the [MIT License](./LICENSE). 
+Comprehensive documentation for this project is available on [Hashnode](https://hashnode.com/@Shashwat56).
 
-For expansive technical documentation on the AI model and its origins, check out my articles on [Hashnode](https://hashnode.com/@Shashwat56).
+> At present, this README serves as the primary source of documentation.
+
+## 📜 License
+
+This project is distributed under the MIT License.  
+For detailed licensing information, please refer to the [LICENSE](./LICENSE) file included in this repository.
+
+## 📩 Contact  
+## Shashwat
+
+**Machine Learning Engineer | Scalable AI Systems**
+
+🔹 **ML systems:** (CV, NLP) + data pipelines<br>
+🔹 **End-to-end:** training → deployment<br>
+🔹 **Backend & Cloud:** Python, Flask, Node.js, Docker, AWS<br>
+🔹 **Projects:** Traffic AI, Video Summarizer, AI Assistants<br>
 
 ---
 
-## 👨‍💻 About the Author
+## 🚀 Open Source | Tech Innovation  
+Building robust applications and leveraging cloud technologies for high-performance solutions.
 
-### **Shashwat**
-**Java Developer | Cloud & NoSQL Enthusiast | UI/UX Innovator**
+---
 
-I specialize in building robust backend systems and wrapping them in highly engaging, scalable, and visually impressive user interfaces. 
-
-🔹 **Languages:** Java, Python, JavaScript  
-🔹 **Technologies:** Spring Boot, Flask, TensorFlow  
-🔹 **Cloud & Systems:** AWS, Docker, MongoDB, Firebase  
-
-### Let's Connect!
-[<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/Shashwat-19) 
-[<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/shashwatk1956/) 
-[<img src="https://img.shields.io/badge/Hashnode-2962FF?style=for-the-badge&logo=hashnode&logoColor=white" />](https://hashnode.com/@Shashwat56)
+### 📌 Find me here:  
+[<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/Shashwat-19)  [<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/shashwatk1956/)  [<img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />](mailto:shashwat1956@gmail.com)  [<img src="https://img.shields.io/badge/Hashnode-2962FF?style=for-the-badge&logo=hashnode&logoColor=white" />](https://hashnode.com/@Shashwat56)
 [<img src="https://img.shields.io/badge/HackerRank-15%2B-2EC866?style=for-the-badge&logo=HackerRank&logoColor=white" />](https://www.hackerrank.com/profile/shashwat1956)
 
-*Feel free to reach out for tech collaborations, open-source engineering, or to chat about building innovative AI tools!*
+> Feel free to connect for tech collaborations, open-source contributions, or brainstorming innovative solutions!

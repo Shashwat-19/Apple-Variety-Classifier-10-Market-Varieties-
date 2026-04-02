@@ -1,256 +1,120 @@
-# Apple Variety Classifier
+# 🍎 Apple Variety Classifier
 
-### EfficientNetV2S with Confidence-Aware Inference (10 Market Varieties)
+> **An ultra-premium, AI-powered web application for classifying 10 market varieties of apples with confidence-aware inference.**
 
 [![GitHub stars](https://img.shields.io/github/stars/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties?style=social)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties?style=social)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/network)
 [![GitHub issues](https://img.shields.io/github/issues/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/pulls)
 [![License](https://img.shields.io/github/license/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties)](./LICENSE)
 
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)](https://www.tensorflow.org/)
+[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)](#)
+[![Flask](https://img.shields.io/badge/Flask-Web%20App-lightgrey?logo=flask&logoColor=black)](#)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![Model](https://img.shields.io/badge/Model-EfficientNetV2S-blueviolet)](#)
-[![Classes](https://img.shields.io/badge/Classes-10-blue)](#)
 [![Validation Accuracy](https://img.shields.io/badge/Val%20Accuracy-96.22%25-brightgreen)](#)
-[![Confidence Aware](https://img.shields.io/badge/Inference-Confidence%20Aware-success)](#)
-
-[![Platform](https://img.shields.io/badge/platform-Windows%20|%20macOS%20|%20Linux-blue)](#)
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green)](#)
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen)](#)
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties/blob/main/notebooks/01_data_exploration.ipynb)
 
 ---
 
-## Overview
+## ✨ Overview
 
 Accurate identification of apple varieties in real-world market conditions is challenging due to high visual similarity across cultivars, varying lighting conditions, and subtle texture differences. Manual inspection is time-consuming and prone to error.
 
-This project presents a **deep learning–based apple variety classification system** built using **EfficientNetV2S**, trained with a **two-stage transfer learning strategy** and enhanced with **confidence-aware inference** to ensure reliable predictions in deployment scenarios.
-
-The model classifies **10 commonly sold apple varieties** and delivers predictions only when the confidence score exceeds a defined threshold, reducing false positives and improving real-world usability.
+This project delivers a **state-of-the-art deep learning system** wrapped in an **ultra-premium, Apple-inspired web dashboard**. By combining an EfficientNetV2S neural network with a frosted-glass frontend, users can effortlessly drag-and-drop apple specimens to receive instant, confidence-aware classifications.
 
 ---
 
-## Key Features
+## 🚀 Key Features
 
-- Classification of **10 apple market varieties**
-- **EfficientNetV2S** backbone (ImageNet pretrained)
-- Two-stage training (frozen + fine-tuning)
-- Confidence-aware prediction filtering
-- High inference reliability (98.1% high-confidence predictions)
-- Robust performance across all classes
-- Deployment-ready architecture
+### 🖥️ Premium Web Interface
+- **Apple-Inspired Aesthetic:** A sleek, modern design featuring glassmorphism (acrylic blur effects), refined typography (Inter), and subtle radial background gradients.
+- **Dynamic Visualizations:** Custom, stagger-animated CSS progress bars that elegantly fill up to represent class probabilities.
+- **Fluid Interactions:** An interactive drag-and-drop zone with responsive hover states and real-time inference feedback.
+- **SaaS-Grade Toasts:** A modern error notification system engineered for a flawless user experience.
 
----
-
-## Model Architecture
-
-The model employs a **transfer learning–based architecture** using **EfficientNetV2S**, pretrained on ImageNet, chosen for its strong accuracy–efficiency trade-off and stable training behavior.
-
-### Backbone
-
-- **EfficientNetV2S (ImageNet pretrained)**
-- Acts as a high-capacity feature extractor
-- Captures robust low- and mid-level visual features (edges, textures, color patterns)
-
-### Classification Head
-
-- **Global Average Pooling** to reduce spatial dimensions and overfitting
-- **Fully Connected Layers** for class-specific feature learning
-- **Softmax Output Layer** producing probabilities for **10 apple varieties**
-
-### Training Strategy
-
-A **two-stage training approach** is used:
-
-- **Stage 1:** Backbone frozen; only the classification head is trained to learn dataset-specific class boundaries
-- **Stage 2:** Top **25% of backbone layers** are unfrozen and fine-tuned with a lower learning rate to adapt high-level features
-
-This strategy ensures **stable convergence**, **reduced overfitting**, and **strong generalization** across all classes.
-
-## Experimental Setup
-
-| Parameter                  | Value                                               |
-| -------------------------- | --------------------------------------------------- |
-| Architecture               | EfficientNetV2S + Custom Head                       |
-| Number of Classes          | 10                                                  |
-| Stage-1 Epochs (Frozen)    | 60                                                  |
-| Stage-2 Epochs (Fine-tune) | 80                                                  |
-| Batch Size                 | 32                                                  |
-| Image Size                 | 224 × 224                                           |
-| Optimizer                  | Adam                                                |
-| Stage-1 Learning Rate      | 3e-4                                                |
-| Stage-2 Learning Rate      | 1e-5                                                |
-| Loss Function              | Sparse Categorical Crossentropy                     |
-| Augmentation               | Flip, Rotate, Zoom, Brightness, Contrast, Translate |
-| Backbone Trainable         | Top 25% layers (Stage-2)                            |
-| Confidence Threshold       | 0.75                                                |
-| Validation Split           | Balanced dataset                                    |
+### 🧠 Robust AI Engine
+- **EfficientNetV2S Backbone:** Utilizes a highly optimized, ImageNet-pretrained model for unparalleled accuracy-efficiency trade-offs.
+- **Confidence-Aware Filtering:** Predictions are only delivered if the system's confidence exceeds **75%** (98.1% inference reliability), eliminating forced false positives on ambiguous images.
+- **Two-Stage Transfer Learning:** Trained utilizing frozen layers transitioning into fine-tuning for top-tier generalization across 10 visually similar apple cultivars.
 
 ---
 
-## Training & Validation Analysis
+## ⚙️ Model Architecture & Training
 
-The training process demonstrates stable convergence with strong generalization:
+The core AI engine is built with TensorFlow/Keras and features:
 
-- Training and validation accuracy remain closely aligned
-- A brief accuracy dip occurs during the transition from Stage-1 to Stage-2 fine-tuning (around epoch ~60)
-- This dip corresponds to newly unfrozen layers adapting to task-specific features
-- Performance stabilizes and improves after adaptation
+1. **Feature Extraction:** A frozen EfficientNetV2S backbone to capture mid-to-high-level visual features like edges, complex textures, and color variances.
+2. **Custom Classification Head:** Global Average Pooling combined with Dense layers and a Softmax output layer tailored to our 10 specific apple classes.
+3. **Training Strategy:** 
+   - *Stage 1:* 60 Epochs (Head only, Adam optimizer at `3e-4`)
+   - *Stage 2:* 80 Epochs (Top 25% of backbone unfrozen, learning rate reduced to `1e-5` for granular fine-tuning).
 
-### Final Performance Summary
-
-```
-
-================================================================================
-FINAL MODEL SUMMARY — Apple EfficientNetV2S
-===========================================
-
-Total Epochs Trained                38
-
-Final Training Accuracy             0.9883
-Final Validation Accuracy           0.9622
-Best Validation Accuracy            0.9744
-------------------------------------------
-
-Final Training Loss                 0.036
-Final Validation Loss               0.1341
-------------------------------------------
-
-Confidence Threshold                0.75
-High-Confidence Predictions         151 / 154 (98.1%)
-Low-Confidence Rejections           3 / 154 (1.9%)
-Mean Confidence Score               0.989
------------------------------------------
-
-Inference Reliability
-• False positives reduced using confidence-aware filtering
-• Predictions delivered only when confidence ≥ 0.75
-• Stable performance across all 10 apple varieties
-==================================================
-
-```
+**Final Performance Setup:**
+- Validation Accuracy: **96.22%**
+- High-Confidence Predictions: **98.1%**
+- Test Inference Time: **Ultra-fast**
 
 ---
 
-## Confidence-Aware Inference
+## 🛠️ Installation & Local Development
 
-To improve real-world reliability, the model applies **confidence-aware filtering** during inference:
+Run the web application locally on your machine with a few simple steps.
 
-- Predictions are accepted only if confidence ≥ **0.75**
-- Low-confidence predictions are rejected rather than forced
-- Reduces false positives in visually ambiguous cases
-- Ensures only reliable predictions are delivered to end-users
-
-This approach significantly improves deployment safety compared to standard softmax-based classification.
-
----
-
-## Dataset
-
-- Balanced dataset of apple images
-- 10 visually similar apple varieties
-- Images resized to **224 × 224**
-- Data augmentation applied to improve robustness
-- Dataset not included in the repository due to size constraints
-
----
-
-## Installation & Usage
-
-### Install Dependencies
-
+### 1. Clone the repository
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties.git
+cd Apple-Variety-Classifier-10-Market-Varieties
 ```
 
-### Train the Model
-
+### 2. Create a Virtual Environment (Recommended)
 ```bash
-python src/train.py
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 
-### Evaluate with Confidence Filtering
-
+### 3. Install Dependencies
 ```bash
-python src/evaluate.py
+pip install -r requirements.txt flask pillow
 ```
 
----
-
-## Results & Visualizations
-
-The following evaluation artifacts are generated:
-
-- Training vs Validation Accuracy Curves
-- Training vs Validation Loss Curves
-- Confusion Matrix
-- Confidence Score Distribution
-- High-confidence vs rejected predictions
-
-All outputs are stored in the `results/` directory.
+### 4. Launch the Web Dashboard
+```bash
+python3 app.py
+```
+> **Success:** Open your web browser and navigate to `http://127.0.0.1:5001` to use the application!
 
 ---
 
-## Future Improvements
+## 🔮 Future Roadmap
 
-- Grad-CAM visual explanations
-- Mobile deployment using TensorFlow Lite
-- Domain adaptation for different lighting environments
-- Real-time webcam inference
-- API deployment using FastAPI
-
----
-
-## License
-
-This project is licensed under the **MIT License**.
+- [ ] Mobile deployment via **TensorFlow Lite**.
+- [ ] Integration of **Grad-CAM visual explanations** to show users *why* the AI made its decision.
+- [ ] Expansion of the dataset to include rare regional apple cultivars.
+- [ ] Containerization via **Docker** for one-click deployments.
 
 ---
 
-## Acknowledgements
+## 📄 License & Documentation
 
-- TensorFlow & Keras team for EfficientNetV2
-- Open-source community for datasets and tools
+This project is open-source and distributed under the [MIT License](./LICENSE). 
 
----
-
-## Documentation
-
-Comprehensive documentation for this project is available on [Hashnode](https://hashnode.com/@Shashwat56).
-
-> At present, this README serves as the primary source of documentation.
-
-## License
-
-This project is distributed under the MIT License.  
-For detailed licensing information, please refer to the [LICENSE](./LICENSE) file included in this repository.
-
-## Contact
-
-### Shashwat
-
-**Java Developer | Cloud & NoSQL Enthusiast**
-
-🔹 **Java** – OOP, Backend Systems, APIs, Automation  
-🔹 **Cloud & NoSQL** – Docker, AWS, MongoDB, Firebase Firestore  
-🔹 **UI/UX Design** – Scalable, user-focused, and visually engaging apps
+For expansive technical documentation on the AI model and its origins, check out my articles on [Hashnode](https://hashnode.com/@Shashwat56).
 
 ---
 
-## Open Source | Tech Innovation
+## 👨‍💻 About the Author
 
-Building robust applications and leveraging cloud technologies for high-performance solutions.
+### **Shashwat**
+**Java Developer | Cloud & NoSQL Enthusiast | UI/UX Innovator**
 
----
+I specialize in building robust backend systems and wrapping them in highly engaging, scalable, and visually impressive user interfaces. 
 
-### Find me here:
+🔹 **Languages:** Java, Python, JavaScript  
+🔹 **Technologies:** Spring Boot, Flask, TensorFlow  
+🔹 **Cloud & Systems:** AWS, Docker, MongoDB, Firebase  
 
-[<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/Shashwat-19) [<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/shashwatk1956/) [<img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />](mailto:shashwat1956@gmail.com) [<img src="https://img.shields.io/badge/Hashnode-2962FF?style=for-the-badge&logo=hashnode&logoColor=white" />](https://hashnode.com/@Shashwat56)
+### Let's Connect!
+[<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/Shashwat-19) 
+[<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/shashwatk1956/) 
+[<img src="https://img.shields.io/badge/Hashnode-2962FF?style=for-the-badge&logo=hashnode&logoColor=white" />](https://hashnode.com/@Shashwat56)
 [<img src="https://img.shields.io/badge/HackerRank-15%2B-2EC866?style=for-the-badge&logo=HackerRank&logoColor=white" />](https://www.hackerrank.com/profile/shashwat1956)
 
-Feel free to connect for tech collaborations, open-source contributions, or brainstorming innovative solutions!
-
----
+*Feel free to reach out for tech collaborations, open-source engineering, or to chat about building innovative AI tools!*

@@ -3,136 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apple Variety Classifier | AI Assessment</title>
+    <title>Apple Variety Classifier</title>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
-    <!-- Phosphor Icons for modern sleek icons -->
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <div class="background-elements">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
+    <!-- Subtle Background Elements -->
+    <div class="ambient-background"></div>
 
     <main class="container">
-      <header class="header">
+      <header class="hero">
         <h1>Apple Variety Classifier</h1>
         <p>
-          Determine the market variety of apples with high precision using
-          EfficientNetV2S.
+          Experience precision analysis. Drop a specimen below to instantly determine its market variety using our EfficientNetV2S neural engine.
         </p>
       </header>
 
-      <div class="app-layout">
-        <!-- Left Column: Upload -->
-        <div class="card upload-card">
-          <h2><i class="ph ph-upload-simple"></i> Upload Specimen</h2>
+      <div class="dashboard">
+        <!-- Left: Upload Section -->
+        <div class="glass-card interactive upload-section">
+          <h2 class="section-title">
+            <i class="ph-fill ph-tray-arrow-down"></i> Input Source
+          </h2>
+          
           <div class="drop-zone" id="drop-zone">
             <input
               type="file"
               id="file-input"
               accept="image/jpeg, image/png, image/webp"
-              hidden
+              class="hidden"
             />
+            
             <div class="drop-zone-content" id="drop-zone-content">
-              <i class="ph ph-image drop-icon"></i>
-              <p class="primary-text">Drag and drop an apple image here</p>
-              <p class="secondary-text">
-                or <span class="highlight">browse files</span>
-              </p>
-              <p class="file-hints">Supports JPG, PNG, WEBP</p>
+              <i class="ph ph-image drop-zone-icon"></i>
+              <span class="drop-text-primary">Drag & Drop image here</span>
+              <span class="drop-text-secondary">or <span class="browse-link">Browse files</span></span>
             </div>
-            <div class="preview-container hidden" id="preview-container">
-              <img id="image-preview" src="" alt="Image Preview" />
-              <button
-                class="remove-btn"
-                id="remove-btn"
-                aria-label="Remove image"
-              >
+
+            <!-- Image Preview Overlay -->
+            <div class="preview-container" id="preview-container">
+              <img id="image-preview" src="" alt="Specimen Preview" class="preview-image" />
+              <button class="remove-btn" id="remove-btn" aria-label="Clear image">
                 <i class="ph ph-x"></i>
               </button>
             </div>
           </div>
-          <button class="btn btn-primary hidden" id="classify-btn" disabled>
-            <i class="ph ph-scan"></i> Classify Apple Variety
+          
+          <button class="btn btn-primary" id="classify-btn" disabled>
+            Analyze Specimen
           </button>
         </div>
 
-        <!-- Right Column: Analysis -->
-        <div class="card analysis-card">
-          <h2><i class="ph ph-chart-bar"></i> Analysis</h2>
+        <!-- Right: Results Dashboard -->
+        <div class="glass-card analysis-section">
+          <h2 class="section-title">
+            <i class="ph-fill ph-chart-polar"></i> Analysis Results
+          </h2>
 
-          <div class="empty-state" id="empty-state">
-            <i class="ph ph-magnifying-glass"></i>
-            <p>Upload an image to start analysis</p>
+          <div class="state-panel" id="empty-state">
+            <i class="ph ph-magnifying-glass empty-icon"></i>
+            <p>Upload a specimen to begin analysis.</p>
           </div>
 
-          <div class="loading-state hidden" id="loading-state">
+          <div class="state-panel hidden" id="loading-state">
             <div class="spinner"></div>
-            <p>Analyzing texture and color patterns...</p>
+            <p>Processing visual data...</p>
           </div>
 
           <div class="results-container hidden" id="results-container">
-            <div class="main-result" id="main-result">
-              <div class="result-header">
-                <span class="label">Identified Variety</span>
-                <span class="confidence-badge" id="confidence-badge"
-                  >High Confidence</span
-                >
-              </div>
-              <h3 class="variety-name" id="variety-name">Apple 10</h3>
-              <div class="score-display">
-                <span class="score-label">Confidence:</span>
-                <span class="score-value" id="score-value">98.5%</span>
-              </div>
-              <div class="inference-time">
-                Inference time: <span id="inference-time">120.5ms</span>
+            <div class="result-hero">
+              <span class="result-label">Identified Variety</span>
+              <h3 class="result-title" id="variety-name">--</h3>
+              <div class="confidence-chip" id="confidence-badge">
+                <i class="ph-fill ph-check-circle"></i> <span>--</span>
               </div>
             </div>
 
-            <div class="warning-alert hidden" id="warning-alert">
-              <i class="ph ph-warning-circle"></i>
-              <div>
-                <strong>Low confidence detection.</strong>
-                <p>This might not be one of the known 10 varieties.</p>
-              </div>
+            <div class="predictions-list" id="predictions-list">
+              <!-- Custom Progress Bars injected via JS -->
             </div>
-
-            <div class="top-predictions">
-              <h4>Top Probabilities</h4>
-              <div class="chart-container">
-                  <canvas id="predictionsChart"></canvas>
-              </div>
+            
+            <div class="inference-meta" id="inference-time">
+              Inference: 0ms
             </div>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Modern Error Toast Notification -->
-    <div id="toast-container" class="toast-container hidden">
-      <div class="toast-content">
-        <i class="ph-fill ph-warning-circle toast-icon"></i>
-        <div class="toast-message">
-          <h4 id="toast-title">Error</h4>
-          <p id="toast-desc">Something went wrong.</p>
-        </div>
-        <button id="toast-close" class="toast-close">
-          <i class="ph ph-x"></i>
-        </button>
-      </div>
+    <!-- Modern Toast -->
+    <div id="toast-container" class="toast-container">
+      <i class="ph-fill ph-warning-circle toast-icon"></i>
+      <span class="toast-message" id="toast-message">An error occurred.</span>
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

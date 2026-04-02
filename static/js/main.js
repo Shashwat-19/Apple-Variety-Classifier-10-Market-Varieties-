@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const dropZoneContent = document.getElementById('drop-zone-content');
@@ -12,70 +11,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingState = document.getElementById('loading-state');
     const resultsContainer = document.getElementById('results-container');
     
-    const mainResult = document.getElementById('main-result');
     const varietyName = document.getElementById('variety-name');
-    const scoreValue = document.getElementById('score-value');
     const confidenceBadge = document.getElementById('confidence-badge');
+    const predictionsList = document.getElementById('predictions-list');
     const inferenceTime = document.getElementById('inference-time');
-    const warningAlert = document.getElementById('warning-alert');
-
+    
     let currentFile = null;
-    let predictionsChart = null;
     let toastTimeout = null;
 
-    // --- Toast Notification System ---
+    // Toast Notification System
     const toastContainer = document.getElementById('toast-container');
-    const toastTitle = document.getElementById('toast-title');
-    const toastDesc = document.getElementById('toast-desc');
-    const toastCloseBtn = document.getElementById('toast-close');
+    const toastMessage = document.getElementById('toast-message');
 
-    function showErrorToast(title, message) {
-        toastTitle.textContent = title;
-        toastDesc.textContent = message;
-        
-        toastContainer.classList.remove('hidden', 'hiding');
-        
+    function showErrorToast(message) {
+        toastMessage.textContent = message;
+        toastContainer.classList.add('visible');
         if(toastTimeout) clearTimeout(toastTimeout);
-        
-        // Auto-hide after 5 seconds
         toastTimeout = setTimeout(() => {
-            hideToast();
-        }, 5000);
+            toastContainer.classList.remove('visible');
+        }, 4000);
     }
 
-    function hideToast() {
-        toastContainer.classList.add('hiding');
-        setTimeout(() => {
-            toastContainer.classList.add('hidden');
-            toastContainer.classList.remove('hiding');
-        }, 300); // match animation duration
-    }
-
-    toastCloseBtn.addEventListener('click', hideToast);
-
-    // --- Event Listeners for file upload ---
-
-    // Click to browse
+    // Drag and Drop Handling
     dropZone.addEventListener('click', (e) => {
         if(e.target === removeBtn || e.target.closest('#remove-btn')) return;
         fileInput.click();
     });
 
     fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            handleFile(e.target.files[0]);
-        }
+        if (e.target.files.length > 0) handleFile(e.target.files[0]);
     });
 
-    // Drag and drop events
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, preventDefaults, false);
+        dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
     });
-
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
 
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
@@ -86,11 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
-        }
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
     });
 
     removeBtn.addEventListener('click', (e) => {
@@ -98,44 +63,37 @@ document.addEventListener('DOMContentLoaded', () => {
         resetUpload();
     });
 
-    // --- File Handling ---
-
     function handleFile(file) {
         if (!file.type.match('image.*')) {
-            showErrorToast("Invalid File Type", "Please select a valid image file (JPG, PNG, WEBP).");
+            showErrorToast("Please select a valid image file (JPG, PNG, WEBP).");
             return;
         }
 
         currentFile = file;
-        
-        // Show Preview
         const reader = new FileReader();
         reader.onload = (e) => {
             imagePreview.src = e.target.result;
+            previewContainer.classList.add('active');
             dropZoneContent.classList.add('hidden');
-            previewContainer.classList.remove('hidden');
-            classifyBtn.classList.remove('hidden');
             classifyBtn.disabled = false;
         };
         reader.readAsDataURL(file);
-
-        // Reset analysis side
         showState('empty');
     }
 
     function resetUpload() {
         currentFile = null;
         fileInput.value = '';
-        imagePreview.src = '';
-        previewContainer.classList.add('hidden');
-        dropZoneContent.classList.remove('hidden');
-        classifyBtn.classList.add('hidden');
+        previewContainer.classList.remove('active');
+        setTimeout(() => {
+            imagePreview.src = '';
+            dropZoneContent.classList.remove('hidden');
+        }, 300); // Wait for fade out
         classifyBtn.disabled = true;
         showState('empty');
     }
 
-    // --- API Interaction ---
-
+    // API Interaction
     classifyBtn.addEventListener('click', async () => {
         if (!currentFile) return;
 
@@ -150,138 +108,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             });
-
             const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Prediction failed');
-            }
-
+            if (!response.ok) throw new Error(data.error || 'Prediction failed');
             displayResults(data);
-
         } catch (error) {
             console.error('Error:', error);
-            
-            // Check if it's the specific Chart.js error which means user has an outdated HTML cache
-            if (error.message.includes('getContext')) {
-                showErrorToast("Update Required", "We've added new visualizations! Please hard refresh your browser (Cmd+Shift+R or Ctrl+Shift+R) to load the new interface.");
-            } else {
-                showErrorToast("Analysis Failed", error.message || "An unexpected error occurred during prediction.");
-            }
-            
+            showErrorToast(error.message || "An unexpected error occurred.");
             showState('empty');
             classifyBtn.disabled = false;
         }
     });
 
     function displayResults(data) {
-        // Update main result
+        // Hero Result
         varietyName.textContent = data.top_class;
-        const confidencePercentage = (data.confidence * 100).toFixed(1);
-        scoreValue.textContent = `${confidencePercentage}%`;
-        inferenceTime.textContent = `${data.inference_time_ms}ms`;
-
-        // Style the card based on confidence
-        mainResult.className = 'main-result'; // reset
+        const confPercent = (data.confidence * 100).toFixed(1);
+        
+        // Chip Styling
+        confidenceBadge.className = 'confidence-chip';
+        let iconHtml = '';
+        
         if (data.confidence >= 0.9) {
-            mainResult.classList.add('success');
-            confidenceBadge.textContent = 'High Confidence';
-            mainResult.style.borderLeftColor = 'var(--accent-glow)';
+            confidenceBadge.classList.add('high');
+            iconHtml = '<i class="ph-fill ph-check-circle"></i>';
+            confidenceBadge.innerHTML = `${iconHtml} <span>${confPercent}% Match</span>`;
         } else if (data.confidence >= data.threshold) {
-            mainResult.classList.add('warning');
-            confidenceBadge.textContent = 'Moderate Confidence';
-            mainResult.style.borderLeftColor = 'var(--accent-yellow)';
+            confidenceBadge.classList.add('medium');
+            iconHtml = '<i class="ph-fill ph-warning-circle"></i>';
+            confidenceBadge.innerHTML = `${iconHtml} <span>${confPercent}% Moderate</span>`;
         } else {
-            mainResult.classList.add('danger');
-            confidenceBadge.textContent = 'Low Confidence';
-            mainResult.style.borderLeftColor = 'var(--accent-red)';
+            confidenceBadge.classList.add('low');
+            iconHtml = '<i class="ph-fill ph-x-circle"></i>';
+            confidenceBadge.innerHTML = `${iconHtml} <span>${confPercent}% Low</span>`;
         }
 
-        if (data.is_high_confidence) {
-            warningAlert.classList.add('hidden');
-        } else {
-            warningAlert.classList.remove('hidden');
-        }
+        inferenceTime.textContent = `Inference: ${data.inference_time_ms}ms`;
 
-        // --- Render Chart.js Graph ---
-        const labels = data.top_predictions.map(pred => pred.class_name);
-        const values = data.top_predictions.map(pred => (pred.score * 100).toFixed(1));
+        // Render Animated Progress Bars
+        predictionsList.innerHTML = '';
         
-        // Colors for chart
-        const mainColor = data.confidence >= 0.9 ? '#00ff88' : (data.confidence >= data.threshold ? '#ffcc00' : '#ff3b30');
-        const bgColors = values.map((_, i) => i === 0 ? mainColor : 'rgba(255, 255, 255, 0.2)');
-        const borderColors = values.map((_, i) => i === 0 ? mainColor : 'rgba(255, 255, 255, 0.5)');
-
-        const ctx = document.getElementById('predictionsChart').getContext('2d');
-        
-        if (predictionsChart) {
-            predictionsChart.destroy();
-        }
-
-        predictionsChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Confidence (%)',
-                    data: values,
-                    backgroundColor: bgColors,
-                    borderColor: borderColors,
-                    borderWidth: 1,
-                    borderRadius: 6,
-                    barThickness: 'flex',
-                    maxBarThickness: 40
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y', // horizontal bar chart
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(25, 25, 28, 0.9)',
-                        titleColor: '#86868b',
-                        bodyColor: '#fff',
-                        borderColor: 'rgba(255,255,255,0.1)',
-                        borderWidth: 1,
-                        padding: 10,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.x + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 100,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)',
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#86868b'
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#fff',
-                            font: { family: "'Inter', sans-serif" }
-                        }
-                    }
-                },
-                animation: {
-                    duration: 1000,
-                    easing: 'easeOutQuart'
-                }
-            }
+        data.top_predictions.forEach((pred, index) => {
+            const percentage = (pred.score * 100).toFixed(1);
+            
+            const item = document.createElement('div');
+            item.className = 'progress-item';
+            
+            item.innerHTML = `
+                <div class="progress-header">
+                    <span class="progress-name">${pred.class_name}</span>
+                    <span class="progress-value">${percentage}%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            `;
+            predictionsList.appendChild(item);
+            
+            // Trigger animation after brief delay
+            setTimeout(() => {
+                item.querySelector('.progress-fill').style.width = `${percentage}%`;
+            }, 50 + (index * 100)); // Stagger animations
         });
 
         showState('results');

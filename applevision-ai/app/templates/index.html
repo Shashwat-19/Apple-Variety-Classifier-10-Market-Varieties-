@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block title %}AppleVision AI — AI-Powered Apple Classification{% endblock %}
+
+{% block content %}
+<!-- ============ HERO SECTION ============ -->
+<section class="hero-gradient relative min-h-[92vh] flex items-center justify-center overflow-hidden">
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Grid Pattern -->
+  <div class="grid-pattern"></div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Status Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card-static mb-8 reveal">
+      <div class="pulse-dot"></div>
+      <span class="text-sm font-medium" style="color:var(--text-secondary)">Model v2.0 — EfficientNetV2S</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 reveal reveal-delay-1">
+      Identify Apple Varieties<br>
+      <span class="gradient-text">with AI Precision</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed reveal reveal-delay-2" style="color:var(--text-secondary)">
+      Powered by EfficientNetV2S deep learning architecture. Classify 10 market apple varieties instantly
+      with <span class="font-semibold" style="color:var(--text-primary)">96%+ accuracy</span> and sub-second inference.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal reveal-delay-3">
+      <a href="/predict" class="btn-primary btn-glow text-base px-8 py-4">
+        <span>Start Classifying</span>
+        <i class="ph-bold ph-arrow-right"></i>
+      </a>
+      <a href="/about" class="btn-secondary text-base px-8 py-4">
+        <i class="ph ph-info"></i>
+        <span>Learn More</span>
+      </a>
+    </div>
+
+    <!-- Mini Stats -->
+    <div class="grid grid-cols-3 gap-4 sm:gap-8 max-w-lg mx-auto mt-16 reveal reveal-delay-4">
+      <div class="text-center">
+        <div class="text-2xl sm:text-3xl font-bold gradient-text">96%+</div>
+        <div class="text-xs sm:text-sm mt-1" style="color:var(--text-tertiary)">Accuracy</div>
+      </div>
+      <div class="text-center">
+        <div class="text-2xl sm:text-3xl font-bold gradient-text">10</div>
+        <div class="text-xs sm:text-sm mt-1" style="color:var(--text-tertiary)">Varieties</div>
+      </div>
+      <div class="text-center">
+        <div class="text-2xl sm:text-3xl font-bold gradient-text">&lt;1s</div>
+        <div class="text-xs sm:text-sm mt-1" style="color:var(--text-tertiary)">Inference</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+    <span class="text-xs" style="color:var(--text-tertiary)">Scroll</span>
+    <i class="ph ph-caret-down text-lg" style="color:var(--text-tertiary)"></i>
+  </div>
+</section>
+
+<!-- ============ FEATURES SECTION ============ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 relative">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Features</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text-primary)">Why AppleVision AI?</h2>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--text-secondary)">
+        State-of-the-art computer vision meets production-ready reliability.
+      </p>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Card 1 -->
+      <div class="glass-card p-6 reveal reveal-delay-1">
+        <div class="feature-icon mb-4">
+          <i class="ph-bold ph-upload-simple"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">Upload Any Image</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+          Drag & drop or browse. Supports JPG, PNG, and WEBP formats up to 10MB.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-card p-6 reveal reveal-delay-2">
+        <div class="feature-icon mb-4" style="background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.1)); color:var(--accent-violet); border-color:rgba(139,92,246,0.15)">
+          <i class="ph-bold ph-apple-logo"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">10 Market Varieties</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+          From Granny Smith to Pink Lady — all major commercial apple varieties covered.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-card p-6 reveal reveal-delay-3">
+        <div class="feature-icon mb-4" style="background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.1)); color:var(--accent-emerald); border-color:rgba(16,185,129,0.15)">
+          <i class="ph-bold ph-target"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">96%+ Accuracy</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+          Fine-tuned EfficientNetV2S model achieving state-of-the-art classification accuracy.
+        </p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="glass-card p-6 reveal reveal-delay-4">
+        <div class="feature-icon mb-4" style="background:linear-gradient(135deg, rgba(236,72,153,0.15), rgba(244,63,94,0.1)); color:var(--accent-pink); border-color:rgba(236,72,153,0.15)">
+          <i class="ph-bold ph-lightning"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">Real-time Results</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+          Sub-second inference time. Get classification results before you can blink.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 relative" style="background:var(--bg-secondary)">
+  <div class="max-w-5xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Process</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text-primary)">How It Works</h2>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--text-secondary)">
+        Three simple steps to classify any apple variety.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      <!-- Connecting Line (desktop) -->
+      <div class="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5" style="background:linear-gradient(90deg, var(--accent-indigo), var(--accent-violet), var(--accent-pink))"></div>
+
+      <!-- Step 1 -->
+      <div class="text-center relative reveal reveal-delay-1">
+        <div class="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-6 shadow-lg shadow-indigo-500/20 relative z-10">
+          <i class="ph-bold ph-upload-simple text-white text-2xl"></i>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2 gradient-text">Step 1</div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">Upload Image</h3>
+        <p class="text-sm" style="color:var(--text-secondary)">
+          Drag & drop your apple image or click to browse from your device.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="text-center relative reveal reveal-delay-2">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg relative z-10" style="background:linear-gradient(135deg, var(--accent-violet), var(--accent-pink)); box-shadow:0 8px 25px rgba(139,92,246,0.2)">
+          <i class="ph-bold ph-brain text-white text-2xl"></i>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2 gradient-text">Step 2</div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">AI Analysis</h3>
+        <p class="text-sm" style="color:var(--text-secondary)">
+          Our EfficientNetV2S model processes and classifies the apple variety in real-time.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="text-center relative reveal reveal-delay-3">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg relative z-10" style="background:linear-gradient(135deg, var(--accent-pink), #f43f5e); box-shadow:0 8px 25px rgba(236,72,153,0.2)">
+          <i class="ph-bold ph-chart-bar text-white text-2xl"></i>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2 gradient-text">Step 3</div>
+        <h3 class="text-lg font-semibold mb-2" style="color:var(--text-primary)">View Results</h3>
+        <p class="text-sm" style="color:var(--text-secondary)">
+          Get detailed predictions with confidence scores, top-5 results, and download options.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUPPORTED VARIETIES ============ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Dataset</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text-primary)">10 Apple Varieties</h2>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--text-secondary)">
+        Trained on the Fruits-360 dataset — covering the most popular market varieties.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 reveal reveal-delay-1">
+      <span class="variety-chip"><i class="ph ph-apple-logo text-red-400"></i> Braeburn</span>
+      <span class="variety-chip"><i class="ph ph-snowflake text-pink-300"></i> Crimson Snow</span>
+      <span class="variety-chip"><i class="ph ph-sun text-yellow-400"></i> Golden 1</span>
+      <span class="variety-chip"><i class="ph ph-sun text-yellow-500"></i> Golden 2</span>
+      <span class="variety-chip"><i class="ph ph-sun text-amber-400"></i> Golden 3</span>
+      <span class="variety-chip"><i class="ph ph-leaf text-green-400"></i> Granny Smith</span>
+      <span class="variety-chip"><i class="ph ph-flower-lotus text-pink-400"></i> Pink Lady</span>
+      <span class="variety-chip"><i class="ph ph-circle text-red-500"></i> Red 1</span>
+      <span class="variety-chip"><i class="ph ph-circle text-red-600"></i> Red 2</span>
+      <span class="variety-chip"><i class="ph ph-circle text-rose-500"></i> Red 3</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH STACK ============ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8" style="background:var(--bg-secondary)">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Technology</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text-primary)">Built With</h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 reveal reveal-delay-1">
+      <span class="tech-badge"><i class="ph ph-brain text-indigo-400"></i> TensorFlow</span>
+      <span class="tech-badge"><i class="ph ph-flask text-emerald-400"></i> Flask</span>
+      <span class="tech-badge"><i class="ph ph-lightning text-yellow-400"></i> EfficientNetV2S</span>
+      <span class="tech-badge"><i class="ph ph-wind text-cyan-400"></i> Tailwind CSS</span>
+      <span class="tech-badge"><i class="ph ph-chart-line text-violet-400"></i> Chart.js</span>
+      <span class="tech-badge"><i class="ph ph-file-py text-blue-400"></i> Python</span>
+      <span class="tech-badge"><i class="ph ph-file-js text-yellow-300"></i> JavaScript</span>
+      <span class="tech-badge"><i class="ph ph-database text-pink-400"></i> Fruits-360</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA SECTION ============ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  <div class="orb orb-1" style="opacity:0.2; width:300px; height:300px; top:-50px; right:-50px;"></div>
+  <div class="orb orb-2" style="opacity:0.15; width:250px; height:250px; bottom:-50px; left:-50px;"></div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text-primary)">Ready to Classify?</h2>
+    <p class="text-lg mb-8" style="color:var(--text-secondary)">
+      Upload an apple image and get instant AI-powered classification results.
+    </p>
+    <a href="/predict" class="btn-primary btn-glow text-base px-8 py-4">
+      <span>Start Classifying</span>
+      <i class="ph-bold ph-arrow-right"></i>
+    </a>
+  </div>
+</section>
+{% endblock %}

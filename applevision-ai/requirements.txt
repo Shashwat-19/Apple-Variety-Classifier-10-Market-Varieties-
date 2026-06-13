@@ -1,0 +1,31 @@
+# =============================================================================
+# AppleVision AI - Python Dependencies
+# =============================================================================
+
+# --- Core Framework ---
+Flask>=3.0.0,<4.0.0
+python-dotenv>=1.0.0
+
+# --- Database ---
+Flask-SQLAlchemy>=3.1.0,<4.0.0
+SQLAlchemy>=2.0.0,<3.0.0
+psycopg2-binary>=2.9.0        # PostgreSQL driver (prod)
+
+# --- API / Validation ---
+pydantic>=2.0.0,<3.0.0
+marshmallow>=3.20.0,<4.0.0
+
+# --- Security & Middleware ---
+Flask-CORS>=4.0.0,<5.0.0
+Flask-Limiter>=3.5.0,<4.0.0
+
+# --- ML / AI ---
+tensorflow>=2.15.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# --- Production Server ---
+gunicorn>=21.2.0
+
+# --- Utilities ---
+python-dateutil>=2.8.0

@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}Contact — AppleVision AI{% endblock %}
+
+{% block content %}
+<section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Contact</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="color:var(--text-primary)">Get in Touch</h1>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--text-secondary)">
+        Have questions, feedback, or want to collaborate? We'd love to hear from you.
+      </p>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+      <!-- LEFT: Contact Form (3 cols) -->
+      <div class="lg:col-span-3 glass-card-static p-6 sm:p-8 reveal reveal-delay-1">
+        <h2 class="text-xl font-semibold mb-6 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-paper-plane-tilt text-xl" style="color:var(--accent-indigo)"></i>
+          Send a Message
+        </h2>
+
+        <form id="contact-form" class="space-y-5" onsubmit="return handleContactSubmit(event)">
+          <!-- Name -->
+          <div>
+            <label for="contact-name" class="form-label">Full Name</label>
+            <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your name" required>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="contact-email" class="form-label">Email Address</label>
+            <input type="email" id="contact-email" name="email" class="form-input" placeholder="you@example.com" required>
+          </div>
+
+          <!-- Subject -->
+          <div>
+            <label for="contact-subject" class="form-label">Subject</label>
+            <select id="contact-subject" name="subject" class="form-input" required>
+              <option value="" disabled selected>Select a topic</option>
+              <option value="general">General Inquiry</option>
+              <option value="feedback">Feedback</option>
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="api">API Integration</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="contact-message" class="form-label">Message</label>
+            <textarea id="contact-message" name="message" class="form-input" rows="5" placeholder="Tell us what's on your mind..." required></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="contact-submit-btn" class="btn-primary w-full justify-center py-3.5">
+            <span id="contact-btn-text">Send Message</span>
+            <div id="contact-btn-spinner" class="spinner hidden"></div>
+            <i id="contact-btn-icon" class="ph-bold ph-paper-plane-right"></i>
+          </button>
+        </form>
+
+        <!-- Success State -->
+        <div id="contact-success" class="hidden text-center py-12">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background:rgba(16,185,129,0.12)">
+            <i class="ph ph-check-circle text-4xl" style="color:var(--accent-emerald)"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="color:var(--text-primary)">Message Sent!</h3>
+          <p class="text-sm mb-6" style="color:var(--text-secondary)">
+            Thank you for reaching out. We'll get back to you as soon as possible.
+          </p>
+          <button onclick="resetContactForm()" class="btn-secondary">
+            <i class="ph ph-arrow-counter-clockwise"></i>
+            <span>Send Another</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Info (2 cols) -->
+      <div class="lg:col-span-2 space-y-6 reveal reveal-delay-2">
+        <!-- Developer Info -->
+        <div class="glass-card-static p-6">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2" style="color:var(--text-primary)">
+            <i class="ph ph-user-circle text-xl" style="color:var(--accent-violet)"></i>
+            Developer
+          </h3>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-indigo-500/20">
+              S
+            </div>
+            <div>
+              <p class="font-semibold" style="color:var(--text-primary)">Shashwat</p>
+              <p class="text-sm" style="color:var(--text-secondary)">Full-Stack Developer & ML Engineer</p>
+            </div>
+          </div>
+          <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+            Passionate about building AI-powered applications that solve real-world problems with elegant solutions.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="glass-card-static p-6">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2" style="color:var(--text-primary)">
+            <i class="ph ph-link text-xl" style="color:var(--accent-emerald)"></i>
+            Connect
+          </h3>
+          <div class="space-y-3">
+            <a href="https://github.com/Shashwat-19" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl transition-colors hover:bg-[var(--bg-tertiary)] group">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--bg-tertiary)">
+                <i class="ph ph-github-logo text-xl" style="color:var(--text-secondary)"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium group-hover:text-indigo-400 transition-colors" style="color:var(--text-primary)">GitHub</p>
+                <p class="text-xs" style="color:var(--text-tertiary)">@Shashwat-19</p>
+              </div>
+              <i class="ph ph-arrow-square-out text-sm ml-auto" style="color:var(--text-tertiary)"></i>
+            </a>
+
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl transition-colors hover:bg-[var(--bg-tertiary)] group">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--bg-tertiary)">
+                <i class="ph ph-linkedin-logo text-xl" style="color:var(--text-secondary)"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium group-hover:text-indigo-400 transition-colors" style="color:var(--text-primary)">LinkedIn</p>
+                <p class="text-xs" style="color:var(--text-tertiary)">Connect professionally</p>
+              </div>
+              <i class="ph ph-arrow-square-out text-sm ml-auto" style="color:var(--text-tertiary)"></i>
+            </a>
+
+            <a href="mailto:contact@applevision.ai" class="flex items-center gap-3 p-3 rounded-xl transition-colors hover:bg-[var(--bg-tertiary)] group">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--bg-tertiary)">
+                <i class="ph ph-envelope text-xl" style="color:var(--text-secondary)"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium group-hover:text-indigo-400 transition-colors" style="color:var(--text-primary)">Email</p>
+                <p class="text-xs" style="color:var(--text-tertiary)">contact@applevision.ai</p>
+              </div>
+              <i class="ph ph-arrow-square-out text-sm ml-auto" style="color:var(--text-tertiary)"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project Info -->
+        <div class="glass-card-static p-6">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2" style="color:var(--text-primary)">
+            <i class="ph ph-code text-xl" style="color:var(--accent-pink)"></i>
+            Project
+          </h3>
+          <a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-xl transition-colors hover:bg-[var(--bg-tertiary)] group">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center gradient-bg">
+              <i class="ph ph-leaf text-white text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-medium group-hover:text-indigo-400 transition-colors" style="color:var(--text-primary)">Apple Variety Classifier</p>
+              <p class="text-xs" style="color:var(--text-tertiary)">10 Market Varieties — Open Source</p>
+            </div>
+            <i class="ph ph-arrow-square-out text-sm" style="color:var(--text-tertiary)"></i>
+          </a>
+          <div class="flex items-center gap-3 mt-3 text-xs" style="color:var(--text-tertiary)">
+            <span class="flex items-center gap-1"><i class="ph ph-star"></i> Star on GitHub</span>
+            <span class="flex items-center gap-1"><i class="ph ph-git-fork"></i> Fork</span>
+            <span class="flex items-center gap-1"><i class="ph ph-scale"></i> MIT License</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function handleContactSubmit(event) {
+  event.preventDefault();
+
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('contact-submit-btn');
+  const btnText = document.getElementById('contact-btn-text');
+  const btnSpinner = document.getElementById('contact-btn-spinner');
+  const btnIcon = document.getElementById('contact-btn-icon');
+  const successDiv = document.getElementById('contact-success');
+
+  // Disable & show spinner
+  submitBtn.disabled = true;
+  submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+  btnText.textContent = 'Sending...';
+  btnSpinner.classList.remove('hidden');
+  btnIcon.classList.add('hidden');
+
+  // Simulate API call
+  setTimeout(() => {
+    form.classList.add('hidden');
+    successDiv.classList.remove('hidden');
+    successDiv.classList.add('result-reveal');
+    Toast.success('Your message has been sent successfully!');
+  }, 1500);
+
+  return false;
+}
+
+function resetContactForm() {
+  const form = document.getElementById('contact-form');
+  const successDiv = document.getElementById('contact-success');
+  const submitBtn = document.getElementById('contact-submit-btn');
+  const btnText = document.getElementById('contact-btn-text');
+  const btnSpinner = document.getElementById('contact-btn-spinner');
+  const btnIcon = document.getElementById('contact-btn-icon');
+
+  form.reset();
+  form.classList.remove('hidden');
+  successDiv.classList.add('hidden');
+  submitBtn.disabled = false;
+  submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+  btnText.textContent = 'Send Message';
+  btnSpinner.classList.add('hidden');
+  btnIcon.classList.remove('hidden');
+}
+</script>
+{% endblock %}

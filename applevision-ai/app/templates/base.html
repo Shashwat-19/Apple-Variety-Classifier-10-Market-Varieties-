@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AppleVision AI — AI-powered apple variety classification using EfficientNetV2S. Identify 10 market apple varieties with 96%+ accuracy.">
+  <meta name="keywords" content="apple classification, AI, machine learning, EfficientNetV2S, deep learning, fruits, computer vision">
+  <meta name="author" content="Shashwat">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta property="og:title" content="AppleVision AI — Apple Variety Classifier">
+  <meta property="og:description" content="Identify 10 market apple varieties instantly with AI-powered classification.">
+  <meta property="og:type" content="website">
+  <title>{% block title %}AppleVision AI{% endblock %}</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            surface: {
+              dark:      '#0a0a0f',
+              'dark-2':  '#111118',
+              'dark-3':  '#1a1a24',
+              light:     '#f8fafc',
+              'light-2': '#ffffff',
+              'light-3': '#f1f5f9',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+  {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="flex items-center justify-between mb-8">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+          <i class="ph ph-leaf text-white text-lg"></i>
+        </div>
+        <span class="text-lg font-bold" style="color:var(--text-primary)">AppleVision</span>
+      </a>
+      <button id="mobile-menu-close" class="theme-toggle" onclick="document.getElementById('hamburger-btn').click()">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-1">
+      <a href="/" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-house"></i> Home
+      </a>
+      <a href="/predict" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-scan"></i> Classify
+      </a>
+      <a href="/about" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-info"></i> About
+      </a>
+      <a href="/analytics" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-chart-bar"></i> Analytics
+      </a>
+      <a href="/api-docs" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-code"></i> API Docs
+      </a>
+      <a href="/contact" class="nav-link flex items-center gap-3 py-3 px-4 rounded-xl text-base">
+        <i class="ph ph-envelope"></i> Contact
+      </a>
+    </nav>
+    <div class="mt-8 pt-6 border-t" style="border-color:var(--border)">
+      <button id="theme-toggle-mobile" class="flex items-center gap-3 w-full py-3 px-4 rounded-xl nav-link text-base">
+        <i class="ph ph-sun"></i> Toggle Theme
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav-blur fixed top-0 left-0 right-0 z-30 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow">
+            <i class="ph-bold ph-leaf text-white text-lg"></i>
+          </div>
+          <span class="text-lg font-bold tracking-tight" style="color:var(--text-primary)">
+            Apple<span class="gradient-text">Vision</span> AI
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-1">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/predict" class="nav-link">Classify</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/analytics" class="nav-link">Analytics</a>
+          <a href="/api-docs" class="nav-link">API Docs</a>
+          <a href="/contact" class="nav-link">Contact</a>
+        </div>
+
+        <!-- Right Section -->
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle-btn" class="theme-toggle hidden md:flex" aria-label="Toggle theme">
+            <i class="ph ph-sun"></i>
+          </button>
+
+          <a href="/predict" class="btn-primary text-sm hidden sm:inline-flex">
+            <i class="ph-bold ph-scan"></i>
+            <span>Classify</span>
+          </a>
+
+          <!-- Hamburger -->
+          <button id="hamburger-btn" class="hamburger md:hidden flex flex-col items-center justify-center gap-1.5 w-10 h-10 rounded-lg border border-transparent hover:border-[var(--glass-border)] hover:bg-[var(--glass)] transition-all" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 pt-16">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-gradient mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <a href="/" class="flex items-center gap-2.5 mb-4">
+            <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+              <i class="ph-bold ph-leaf text-white text-sm"></i>
+            </div>
+            <span class="text-base font-bold" style="color:var(--text-primary)">
+              Apple<span class="gradient-text">Vision</span> AI
+            </span>
+          </a>
+          <p class="text-sm leading-relaxed max-w-md" style="color:var(--text-secondary)">
+            AI-powered apple variety classification using EfficientNetV2S. Identify 10 market apple varieties with industry-leading accuracy.
+          </p>
+          <div class="flex items-center gap-3 mt-4">
+            <a href="https://github.com/Shashwat-19" target="_blank" rel="noopener" class="theme-toggle w-9 h-9 text-sm" aria-label="GitHub">
+              <i class="ph ph-github-logo"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="theme-toggle w-9 h-9 text-sm" aria-label="LinkedIn">
+              <i class="ph ph-linkedin-logo"></i>
+            </a>
+            <a href="mailto:contact@applevision.ai" class="theme-toggle w-9 h-9 text-sm" aria-label="Email">
+              <i class="ph ph-envelope"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4" style="color:var(--text-primary)">Product</h4>
+          <ul class="space-y-2.5">
+            <li><a href="/predict" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Classify</a></li>
+            <li><a href="/analytics" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Analytics</a></li>
+            <li><a href="/api-docs" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">API Docs</a></li>
+            <li><a href="/about" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">About Model</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="text-sm font-semibold mb-4" style="color:var(--text-primary)">Resources</h4>
+          <ul class="space-y-2.5">
+            <li><a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-" target="_blank" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">GitHub Repo</a></li>
+            <li><a href="/contact" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Contact</a></li>
+            <li><a href="https://www.kaggle.com/datasets/moltean/fruits" target="_blank" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Dataset</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color:var(--border)">
+        <p class="text-xs" style="color:var(--text-tertiary)">
+          &copy; 2025 AppleVision AI. Built by <a href="https://github.com/Shashwat-19" target="_blank" class="hover:text-indigo-400 transition-colors">Shashwat</a>.
+        </p>
+        <div class="flex items-center gap-2 text-xs" style="color:var(--text-tertiary)">
+          <span>Built with</span>
+          <div class="flex items-center gap-1.5">
+            <span class="tech-badge text-xs py-0.5 px-2">Flask</span>
+            <span class="tech-badge text-xs py-0.5 px-2">TensorFlow</span>
+            <span class="tech-badge text-xs py-0.5 px-2">Tailwind</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core JS -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

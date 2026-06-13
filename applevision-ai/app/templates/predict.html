@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}Classify — AppleVision AI{% endblock %}
+
+{% block content %}
+<section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="text-center mb-12 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Classification</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="color:var(--text-primary)">Apple Variety Classifier</h1>
+      <p class="text-base max-w-xl mx-auto" style="color:var(--text-secondary)">
+        Upload an apple image and our AI will identify the variety in seconds.
+      </p>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 reveal reveal-delay-1">
+
+      <!-- LEFT: Upload Panel -->
+      <div class="glass-card-static p-6 sm:p-8">
+        <h2 class="text-lg font-semibold mb-6 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-image text-xl" style="color:var(--accent-indigo)"></i>
+          Upload Image
+        </h2>
+
+        <!-- Upload Zone -->
+        <div id="upload-section">
+          <div id="upload-zone" class="upload-zone">
+            <div class="upload-zone-border"></div>
+            <div class="flex flex-col items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.05)); color:var(--accent-indigo)">
+                <i class="ph ph-cloud-arrow-up text-3xl"></i>
+              </div>
+              <div>
+                <p class="text-base font-medium mb-1" style="color:var(--text-primary)">Drop your image here</p>
+                <p class="text-sm" style="color:var(--text-tertiary)">or <span class="font-medium" style="color:var(--accent-indigo)">click to browse</span></p>
+              </div>
+              <div class="flex items-center gap-2 text-xs" style="color:var(--text-tertiary)">
+                <span class="px-2 py-0.5 rounded" style="background:var(--bg-tertiary)">JPG</span>
+                <span class="px-2 py-0.5 rounded" style="background:var(--bg-tertiary)">PNG</span>
+                <span class="px-2 py-0.5 rounded" style="background:var(--bg-tertiary)">WEBP</span>
+                <span>• Max 10MB</span>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.webp" class="hidden" aria-label="Upload apple image">
+        </div>
+
+        <!-- Image Preview -->
+        <div id="preview-section" class="hidden">
+          <div class="image-preview-wrapper">
+            <img id="preview-image" src="" alt="Selected apple image for classification">
+            <div class="image-preview-overlay">
+              <button id="remove-image-btn" class="w-8 h-8 rounded-lg flex items-center justify-center text-white bg-red-500/80 hover:bg-red-500 transition-colors" aria-label="Remove image">
+                <i class="ph ph-x text-sm"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div id="progress-container" class="hidden mt-6">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium" style="color:var(--text-secondary)">Analyzing...</span>
+            <span class="text-xs" style="color:var(--text-tertiary)">Please wait</span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="progress-fill" class="progress-bar-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Analyze Button -->
+        <button id="analyze-btn" class="btn-primary w-full mt-6 justify-center py-3.5 opacity-50 cursor-not-allowed" disabled>
+          <span id="analyze-btn-text">Analyze Specimen</span>
+          <div id="analyze-btn-spinner" class="spinner hidden"></div>
+          <i class="ph-bold ph-sparkle" id="analyze-btn-icon"></i>
+        </button>
+
+        <!-- Help Text -->
+        <p class="text-xs text-center mt-4" style="color:var(--text-tertiary)">
+          <i class="ph ph-shield-check"></i> Images are processed server-side and not stored permanently.
+        </p>
+      </div>
+
+      <!-- RIGHT: Results Panel -->
+      <div class="glass-card-static p-6 sm:p-8" id="results-panel">
+        <h2 class="text-lg font-semibold mb-6 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-chart-bar text-xl" style="color:var(--accent-violet)"></i>
+          Classification Results
+        </h2>
+
+        <!-- Empty State -->
+        <div id="results-empty" class="flex flex-col items-center justify-center py-16 text-center">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-6" style="background:var(--bg-tertiary)">
+            <i class="ph ph-scan text-3xl" style="color:var(--text-tertiary)"></i>
+          </div>
+          <p class="text-base font-medium mb-2" style="color:var(--text-secondary)">No results yet</p>
+          <p class="text-sm max-w-xs" style="color:var(--text-tertiary)">
+            Upload an apple image and click "Analyze Specimen" to see classification results.
+          </p>
+        </div>
+
+        <!-- Results Content -->
+        <div id="results-content" class="hidden">
+          <!-- Main Result -->
+          <div class="text-center mb-8 pb-6 border-b" style="border-color:var(--border)">
+            <p class="text-sm font-medium mb-2" style="color:var(--text-tertiary)">Predicted Variety</p>
+            <h3 id="result-class" class="text-3xl sm:text-4xl font-bold mb-3 gradient-text">—</h3>
+            <div id="confidence-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium badge-high">
+              <i class="ph ph-check-circle"></i> High Confidence
+            </div>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="text-center p-4 rounded-xl" style="background:var(--bg-tertiary)">
+              <p class="text-xs font-medium mb-1" style="color:var(--text-tertiary)">Confidence</p>
+              <p id="result-confidence" class="text-2xl font-bold" style="color:var(--text-primary)">—</p>
+            </div>
+            <div class="text-center p-4 rounded-xl" style="background:var(--bg-tertiary)">
+              <p class="text-xs font-medium mb-1" style="color:var(--text-tertiary)">Inference Time</p>
+              <p id="inference-time" class="text-2xl font-bold" style="color:var(--text-primary)">—</p>
+            </div>
+          </div>
+
+          <!-- Top 5 Predictions -->
+          <div class="mb-6">
+            <h4 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color:var(--text-secondary)">
+              <i class="ph ph-list-numbers"></i> Top 5 Predictions
+            </h4>
+            <div id="top-predictions-list"></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t" style="border-color:var(--border)">
+            <button id="download-btn" class="btn-secondary flex-1 justify-center hidden">
+              <i class="ph ph-download-simple"></i>
+              <span>Download JSON</span>
+            </button>
+            <button id="reupload-btn" class="btn-secondary flex-1 justify-center hidden">
+              <i class="ph ph-arrow-counter-clockwise"></i>
+              <span>New Image</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Link -->
+    <div class="text-center mt-8 reveal">
+      <a href="/analytics" class="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-indigo-400" style="color:var(--text-secondary)">
+        <i class="ph ph-clock-counter-clockwise"></i>
+        View Prediction History & Analytics
+        <i class="ph ph-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+{% endblock %}

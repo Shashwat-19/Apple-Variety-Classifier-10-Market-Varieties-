@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Analytics — AppleVision AI{% endblock %}
+
+{% block content %}
+<section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10 reveal">
+      <div>
+        <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-2 gradient-text">Analytics</span>
+        <h1 class="text-3xl sm:text-4xl font-bold" style="color:var(--text-primary)">Prediction Analytics</h1>
+        <p class="text-base mt-1" style="color:var(--text-secondary)">
+          Real-time insights into classification activity.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- Auto Refresh -->
+        <label class="flex items-center gap-2 text-sm cursor-pointer" style="color:var(--text-secondary)">
+          <span>Auto-refresh</span>
+          <div class="relative">
+            <input type="checkbox" id="auto-refresh-toggle" class="sr-only peer">
+            <div class="w-9 h-5 rounded-full peer peer-checked:bg-indigo-500 transition-colors" style="background:var(--bg-tertiary)"></div>
+            <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+          </div>
+        </label>
+        <!-- Refresh Button -->
+        <button onclick="location.reload()" class="btn-secondary text-sm px-3 py-2">
+          <i class="ph ph-arrow-clockwise"></i>
+          <span class="hidden sm:inline">Refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 reveal reveal-delay-1">
+      <!-- Total Predictions -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-medium" style="color:var(--text-secondary)">Total Predictions</span>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:rgba(99,102,241,0.12)">
+            <i class="ph ph-chart-bar text-lg" style="color:var(--accent-indigo)"></i>
+          </div>
+        </div>
+        <div class="stat-skeleton skeleton h-8 w-24 hidden"></div>
+        <div class="stat-value">
+          <span id="stat-total" class="text-3xl font-bold counter-value" style="color:var(--text-primary)">0</span>
+        </div>
+        <p class="text-xs mt-2" style="color:var(--text-tertiary)">All-time classification count</p>
+      </div>
+
+      <!-- Most Predicted -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-medium" style="color:var(--text-secondary)">Most Predicted</span>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,0.12)">
+            <i class="ph ph-trophy text-lg" style="color:var(--accent-violet)"></i>
+          </div>
+        </div>
+        <div class="stat-skeleton skeleton h-8 w-32 hidden"></div>
+        <div class="stat-value">
+          <span id="stat-most" class="text-2xl font-bold" style="color:var(--text-primary)">—</span>
+        </div>
+        <p class="text-xs mt-2" style="color:var(--text-tertiary)">Most popular variety</p>
+      </div>
+
+      <!-- Today's Count -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-medium" style="color:var(--text-secondary)">Today's Predictions</span>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:rgba(16,185,129,0.12)">
+            <i class="ph ph-calendar-check text-lg" style="color:var(--accent-emerald)"></i>
+          </div>
+        </div>
+        <div class="stat-skeleton skeleton h-8 w-16 hidden"></div>
+        <div class="stat-value">
+          <span id="stat-today" class="text-3xl font-bold counter-value" style="color:var(--text-primary)">0</span>
+        </div>
+        <p class="text-xs mt-2" style="color:var(--text-tertiary)">Predictions made today</p>
+      </div>
+
+      <!-- Avg Confidence -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-medium" style="color:var(--text-secondary)">Avg Confidence</span>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:rgba(236,72,153,0.12)">
+            <i class="ph ph-target text-lg" style="color:var(--accent-pink)"></i>
+          </div>
+        </div>
+        <div class="stat-skeleton skeleton h-8 w-20 hidden"></div>
+        <div class="stat-value">
+          <span id="stat-avg" class="text-3xl font-bold counter-value" style="color:var(--text-primary)">0</span>
+          <span class="text-xl font-bold" style="color:var(--text-secondary)">%</span>
+        </div>
+        <p class="text-xs mt-2" style="color:var(--text-tertiary)">Average prediction confidence</p>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+      <!-- Bar Chart -->
+      <div class="chart-container reveal reveal-delay-1">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-semibold flex items-center gap-2" style="color:var(--text-primary)">
+            <i class="ph ph-chart-bar text-lg" style="color:var(--accent-indigo)"></i>
+            Predictions by Variety
+          </h3>
+        </div>
+        <div class="chart-skeleton skeleton h-64 mb-2 hidden"></div>
+        <div class="relative" style="height:280px">
+          <canvas id="bar-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="chart-container reveal reveal-delay-2">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-semibold flex items-center gap-2" style="color:var(--text-primary)">
+            <i class="ph ph-chart-pie text-lg" style="color:var(--accent-violet)"></i>
+            Distribution
+          </h3>
+        </div>
+        <div class="chart-skeleton skeleton h-64 mb-2 hidden"></div>
+        <div class="relative" style="height:280px">
+          <canvas id="donut-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Line Chart (Full Width) -->
+    <div class="chart-container reveal">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-semibold flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-chart-line text-lg" style="color:var(--accent-emerald)"></i>
+          Prediction Trend — Last 30 Days
+        </h3>
+      </div>
+      <div class="chart-skeleton skeleton h-64 mb-2 hidden"></div>
+      <div class="relative" style="height:320px">
+        <canvas id="line-chart"></canvas>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %}

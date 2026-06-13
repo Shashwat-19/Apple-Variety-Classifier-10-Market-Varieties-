@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% block title %}API Documentation — AppleVision AI{% endblock %}
+
+{% block content %}
+<section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Developer</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="color:var(--text-primary)">API Documentation</h1>
+      <p class="text-base max-w-2xl mx-auto" style="color:var(--text-secondary)">
+        Integrate AppleVision AI classification into your applications with our REST API.
+      </p>
+    </div>
+
+    <!-- API Info Banner -->
+    <div class="glass-card-static p-5 mb-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 reveal">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:rgba(16,185,129,0.12)">
+          <i class="ph ph-lock-simple-open text-xl" style="color:var(--accent-emerald)"></i>
+        </div>
+        <div>
+          <p class="text-sm font-semibold" style="color:var(--text-primary)">Open API — No Authentication Required</p>
+          <p class="text-xs" style="color:var(--text-tertiary)">All endpoints are currently publicly accessible.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 sm:ml-auto">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background:rgba(99,102,241,0.12); color:var(--accent-indigo)">Base URL: /api</span>
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background:rgba(245,158,11,0.12); color:var(--accent-amber)">JSON Response</span>
+      </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="glass-card-static p-5 mb-10 reveal">
+      <h3 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-secondary)">
+        <i class="ph ph-list"></i> Endpoints
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <a href="#endpoint-predict" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors hover:bg-[var(--bg-tertiary)]">
+          <span class="method-post text-xs font-bold px-2 py-0.5 rounded">POST</span>
+          <span class="text-sm font-mono" style="color:var(--text-primary)">/api/predict</span>
+        </a>
+        <a href="#endpoint-history" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors hover:bg-[var(--bg-tertiary)]">
+          <span class="method-get text-xs font-bold px-2 py-0.5 rounded">GET</span>
+          <span class="text-sm font-mono" style="color:var(--text-primary)">/api/history</span>
+        </a>
+        <a href="#endpoint-stats" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors hover:bg-[var(--bg-tertiary)]">
+          <span class="method-get text-xs font-bold px-2 py-0.5 rounded">GET</span>
+          <span class="text-sm font-mono" style="color:var(--text-primary)">/api/stats</span>
+        </a>
+        <a href="#endpoint-health" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors hover:bg-[var(--bg-tertiary)]">
+          <span class="method-get text-xs font-bold px-2 py-0.5 rounded">GET</span>
+          <span class="text-sm font-mono" style="color:var(--text-primary)">/api/health</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ====== ENDPOINT: POST /api/predict ====== -->
+    <div id="endpoint-predict" class="glass-card-static p-6 sm:p-8 mb-8 reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="method-post text-sm font-bold px-3 py-1 rounded-lg">POST</span>
+        <code class="text-lg font-mono font-semibold" style="color:var(--text-primary)">/api/predict</code>
+      </div>
+
+      <p class="text-sm mb-6 leading-relaxed" style="color:var(--text-secondary)">
+        Submit an apple image for classification. Returns the predicted variety, confidence score, top-5 predictions, and inference time.
+      </p>
+
+      <!-- Parameters -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-sliders"></i> Parameters
+      </h4>
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b" style="border-color:var(--border)">
+              <th class="text-left py-2.5 px-3 font-semibold" style="color:var(--text-secondary)">Name</th>
+              <th class="text-left py-2.5 px-3 font-semibold" style="color:var(--text-secondary)">Type</th>
+              <th class="text-left py-2.5 px-3 font-semibold" style="color:var(--text-secondary)">Required</th>
+              <th class="text-left py-2.5 px-3 font-semibold" style="color:var(--text-secondary)">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2.5 px-3 font-mono text-xs" style="color:var(--accent-indigo)">file</td>
+              <td class="py-2.5 px-3 text-xs" style="color:var(--text-tertiary)">File (multipart/form-data)</td>
+              <td class="py-2.5 px-3"><span class="text-xs font-medium px-2 py-0.5 rounded-full badge-high">Required</span></td>
+              <td class="py-2.5 px-3 text-xs" style="color:var(--text-secondary)">Apple image file (JPG, PNG, WEBP)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- cURL Example -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-terminal"></i> cURL Example
+      </h4>
+      <div class="code-block mb-6">
+        <button class="code-copy-btn">Copy</button>
+        <code><span class="code-keyword">curl</span> -X POST http://localhost:5001/api/predict \
+  -F <span class="code-string">"file=@apple_image.jpg"</span></code>
+      </div>
+
+      <!-- Response -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-arrow-bend-down-left"></i> Response — <span class="text-xs font-normal badge-high px-2 py-0.5 rounded-full">200 OK</span>
+      </h4>
+      <div class="code-block">
+        <button class="code-copy-btn">Copy</button>
+        <code>{
+  <span class="code-key">"top_class"</span>: <span class="code-string">"Granny Smith"</span>,
+  <span class="code-key">"confidence"</span>: <span class="code-number">0.9847</span>,
+  <span class="code-key">"inference_time_ms"</span>: <span class="code-number">142.35</span>,
+  <span class="code-key">"is_high_confidence"</span>: <span class="code-keyword">true</span>,
+  <span class="code-key">"threshold"</span>: <span class="code-number">0.75</span>,
+  <span class="code-key">"top_predictions"</span>: [
+    { <span class="code-key">"class_name"</span>: <span class="code-string">"Granny Smith"</span>, <span class="code-key">"score"</span>: <span class="code-number">0.9847</span> },
+    { <span class="code-key">"class_name"</span>: <span class="code-string">"Golden 3"</span>, <span class="code-key">"score"</span>: <span class="code-number">0.0089</span> },
+    { <span class="code-key">"class_name"</span>: <span class="code-string">"Golden 1"</span>, <span class="code-key">"score"</span>: <span class="code-number">0.0032</span> },
+    { <span class="code-key">"class_name"</span>: <span class="code-string">"Braeburn"</span>, <span class="code-key">"score"</span>: <span class="code-number">0.0018</span> },
+    { <span class="code-key">"class_name"</span>: <span class="code-string">"Pink Lady"</span>, <span class="code-key">"score"</span>: <span class="code-number">0.0009</span> }
+  ]
+}</code>
+      </div>
+
+      <!-- Error Responses -->
+      <div class="mt-6">
+        <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-warning"></i> Error Responses
+        </h4>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center gap-3 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <span class="text-xs font-bold px-2 py-0.5 rounded badge-low">400</span>
+            <span style="color:var(--text-secondary)">No file provided or invalid file format</span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <span class="text-xs font-bold px-2 py-0.5 rounded badge-low">500</span>
+            <span style="color:var(--text-secondary)">Model not loaded or prediction failed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ENDPOINT: GET /api/history ====== -->
+    <div id="endpoint-history" class="glass-card-static p-6 sm:p-8 mb-8 reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="method-get text-sm font-bold px-3 py-1 rounded-lg">GET</span>
+        <code class="text-lg font-mono font-semibold" style="color:var(--text-primary)">/api/history</code>
+      </div>
+
+      <p class="text-sm mb-6 leading-relaxed" style="color:var(--text-secondary)">
+        Retrieve the recent prediction history. Returns a list of past classification results with timestamps.
+      </p>
+
+      <!-- cURL Example -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-terminal"></i> cURL Example
+      </h4>
+      <div class="code-block mb-6">
+        <button class="code-copy-btn">Copy</button>
+        <code><span class="code-keyword">curl</span> http://localhost:5001/api/history</code>
+      </div>
+
+      <!-- Response -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-arrow-bend-down-left"></i> Response — <span class="text-xs font-normal badge-high px-2 py-0.5 rounded-full">200 OK</span>
+      </h4>
+      <div class="code-block">
+        <button class="code-copy-btn">Copy</button>
+        <code>{
+  <span class="code-key">"history"</span>: [
+    {
+      <span class="code-key">"id"</span>: <span class="code-number">1</span>,
+      <span class="code-key">"top_class"</span>: <span class="code-string">"Granny Smith"</span>,
+      <span class="code-key">"confidence"</span>: <span class="code-number">0.9847</span>,
+      <span class="code-key">"timestamp"</span>: <span class="code-string">"2025-01-15T10:30:00Z"</span>
+    }
+  ],
+  <span class="code-key">"total"</span>: <span class="code-number">42</span>
+}</code>
+      </div>
+    </div>
+
+    <!-- ====== ENDPOINT: GET /api/stats ====== -->
+    <div id="endpoint-stats" class="glass-card-static p-6 sm:p-8 mb-8 reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="method-get text-sm font-bold px-3 py-1 rounded-lg">GET</span>
+        <code class="text-lg font-mono font-semibold" style="color:var(--text-primary)">/api/stats</code>
+      </div>
+
+      <p class="text-sm mb-6 leading-relaxed" style="color:var(--text-secondary)">
+        Get aggregated statistics including total predictions, variety distribution, daily trends, and average confidence.
+      </p>
+
+      <!-- cURL Example -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-terminal"></i> cURL Example
+      </h4>
+      <div class="code-block mb-6">
+        <button class="code-copy-btn">Copy</button>
+        <code><span class="code-keyword">curl</span> http://localhost:5001/api/stats</code>
+      </div>
+
+      <!-- Response -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-arrow-bend-down-left"></i> Response — <span class="text-xs font-normal badge-high px-2 py-0.5 rounded-full">200 OK</span>
+      </h4>
+      <div class="code-block">
+        <button class="code-copy-btn">Copy</button>
+        <code>{
+  <span class="code-key">"total_predictions"</span>: <span class="code-number">1247</span>,
+  <span class="code-key">"most_predicted"</span>: <span class="code-string">"Granny Smith"</span>,
+  <span class="code-key">"today_count"</span>: <span class="code-number">23</span>,
+  <span class="code-key">"avg_confidence"</span>: <span class="code-number">92.4</span>,
+  <span class="code-key">"variety_counts"</span>: {
+    <span class="code-key">"Braeburn"</span>: <span class="code-number">145</span>,
+    <span class="code-key">"Granny Smith"</span>: <span class="code-number">203</span>,
+    <span class="code-comment">// ... other varieties</span>
+  },
+  <span class="code-key">"daily_trend"</span>: [
+    { <span class="code-key">"date"</span>: <span class="code-string">"2025-01-15"</span>, <span class="code-key">"count"</span>: <span class="code-number">23</span> }
+  ]
+}</code>
+      </div>
+    </div>
+
+    <!-- ====== ENDPOINT: GET /api/health ====== -->
+    <div id="endpoint-health" class="glass-card-static p-6 sm:p-8 mb-8 reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="method-get text-sm font-bold px-3 py-1 rounded-lg">GET</span>
+        <code class="text-lg font-mono font-semibold" style="color:var(--text-primary)">/api/health</code>
+      </div>
+
+      <p class="text-sm mb-6 leading-relaxed" style="color:var(--text-secondary)">
+        Health check endpoint. Returns server status and model availability.
+      </p>
+
+      <!-- cURL Example -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-terminal"></i> cURL Example
+      </h4>
+      <div class="code-block mb-6">
+        <button class="code-copy-btn">Copy</button>
+        <code><span class="code-keyword">curl</span> http://localhost:5001/api/health</code>
+      </div>
+
+      <!-- Response -->
+      <h4 class="text-sm font-semibold mb-3 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-arrow-bend-down-left"></i> Response — <span class="text-xs font-normal badge-high px-2 py-0.5 rounded-full">200 OK</span>
+      </h4>
+      <div class="code-block">
+        <button class="code-copy-btn">Copy</button>
+        <code>{
+  <span class="code-key">"status"</span>: <span class="code-string">"healthy"</span>,
+  <span class="code-key">"model_loaded"</span>: <span class="code-keyword">true</span>,
+  <span class="code-key">"labels_loaded"</span>: <span class="code-keyword">true</span>,
+  <span class="code-key">"version"</span>: <span class="code-string">"2.0.0"</span>
+}</code>
+      </div>
+    </div>
+
+    <!-- Rate Limiting Notice -->
+    <div class="glass-card-static p-5 mb-8 reveal">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(245,158,11,0.12)">
+          <i class="ph ph-clock text-xl" style="color:var(--accent-amber)"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold mb-1" style="color:var(--text-primary)">Rate Limiting</h4>
+          <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+            Currently, there are no rate limits enforced. For production deployments, we recommend implementing 
+            rate limiting at the reverse proxy level (e.g., Nginx) to prevent abuse. A recommended limit is 
+            <span class="font-medium" style="color:var(--text-primary)">60 requests per minute</span> per IP for the prediction endpoint.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SDK Notice -->
+    <div class="text-center reveal">
+      <p class="text-sm mb-4" style="color:var(--text-secondary)">
+        Need help integrating? Check out our
+        <a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-" target="_blank" class="font-medium transition-colors hover:text-indigo-400" style="color:var(--accent-indigo)">GitHub repository</a>
+        for examples and more details.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

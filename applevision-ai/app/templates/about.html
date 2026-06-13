@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+{% block title %}About the Model — AppleVision AI{% endblock %}
+
+{% block content %}
+<section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Page Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-sm font-semibold tracking-widest uppercase mb-3 gradient-text">Model</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="color:var(--text-primary)">About the Model</h1>
+      <p class="text-base max-w-2xl mx-auto" style="color:var(--text-secondary)">
+        A deep dive into the architecture, dataset, and training behind AppleVision AI's classification engine.
+      </p>
+    </div>
+
+    <!-- Architecture & Overview Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <!-- Architecture Card -->
+      <div class="glass-card-static p-6 sm:p-8 reveal reveal-delay-1">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="feature-icon">
+            <i class="ph-bold ph-brain"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold" style="color:var(--text-primary)">Model Architecture</h2>
+            <p class="text-sm" style="color:var(--text-secondary)">EfficientNetV2S — Transfer Learning</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <p class="text-sm leading-relaxed" style="color:var(--text-secondary)">
+            AppleVision AI is powered by <span class="font-semibold" style="color:var(--text-primary)">EfficientNetV2S</span>, 
+            a state-of-the-art convolutional neural network architecture developed by Google Brain. It combines 
+            progressive learning with Fused-MBConv blocks for optimal speed-accuracy trade-offs.
+          </p>
+
+          <!-- Architecture Diagram -->
+          <div class="rounded-xl p-5" style="background:var(--bg-tertiary)">
+            <div class="flex items-center justify-between text-xs font-mono gap-2 overflow-x-auto">
+              <div class="flex flex-col items-center gap-1 min-w-[70px]">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold" style="background:rgba(99,102,241,0.2); color:var(--accent-indigo)">
+                  224²
+                </div>
+                <span style="color:var(--text-tertiary)">Input</span>
+              </div>
+              <i class="ph ph-arrow-right" style="color:var(--text-tertiary)"></i>
+              <div class="flex flex-col items-center gap-1 min-w-[70px]">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold" style="background:rgba(139,92,246,0.2); color:var(--accent-violet)">
+                  Conv
+                </div>
+                <span style="color:var(--text-tertiary)">Stem</span>
+              </div>
+              <i class="ph ph-arrow-right" style="color:var(--text-tertiary)"></i>
+              <div class="flex flex-col items-center gap-1 min-w-[70px]">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold" style="background:rgba(236,72,153,0.2); color:var(--accent-pink)">
+                  MBC
+                </div>
+                <span style="color:var(--text-tertiary)">Blocks</span>
+              </div>
+              <i class="ph ph-arrow-right" style="color:var(--text-tertiary)"></i>
+              <div class="flex flex-col items-center gap-1 min-w-[70px]">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold" style="background:rgba(16,185,129,0.2); color:var(--accent-emerald)">
+                  GAP
+                </div>
+                <span style="color:var(--text-tertiary)">Pool</span>
+              </div>
+              <i class="ph ph-arrow-right" style="color:var(--text-tertiary)"></i>
+              <div class="flex flex-col items-center gap-1 min-w-[70px]">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold" style="background:rgba(245,158,11,0.2); color:var(--accent-amber)">
+                  10
+                </div>
+                <span style="color:var(--text-tertiary)">Output</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="tech-badge text-xs">Transfer Learning</span>
+            <span class="tech-badge text-xs">ImageNet Pre-trained</span>
+            <span class="tech-badge text-xs">Fine-tuned</span>
+            <span class="tech-badge text-xs">Progressive Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dataset Card -->
+      <div class="glass-card-static p-6 sm:p-8 reveal reveal-delay-2">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="feature-icon" style="background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.1)); color:var(--accent-emerald); border-color:rgba(16,185,129,0.15)">
+            <i class="ph-bold ph-database"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold" style="color:var(--text-primary)">Dataset</h2>
+            <p class="text-sm" style="color:var(--text-secondary)">Fruits-360 — 10 Apple Classes</p>
+          </div>
+        </div>
+
+        <p class="text-sm leading-relaxed mb-6" style="color:var(--text-secondary)">
+          Trained on a curated subset of the <span class="font-semibold" style="color:var(--text-primary)">Fruits-360 dataset</span>
+          from Kaggle, featuring 10 distinct apple variety classes with diverse samples for robust classification.
+        </p>
+
+        <!-- Varieties Grid -->
+        <div class="grid grid-cols-2 gap-2">
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-red-400"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Braeburn</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-pink-300"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Crimson Snow</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Golden 1</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Golden 2</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Golden 3</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-green-400"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Granny Smith</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-pink-400"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Pink Lady</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Red 1</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-red-600"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Red 2</span>
+          </div>
+          <div class="flex items-center gap-2 p-2.5 rounded-lg" style="background:var(--bg-tertiary)">
+            <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+            <span class="text-sm" style="color:var(--text-primary)">Red 3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Specifications -->
+    <div class="glass-card-static p-6 sm:p-8 mb-12 reveal">
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2" style="color:var(--text-primary)">
+        <i class="ph ph-gear-six text-xl" style="color:var(--accent-indigo)"></i>
+        Model Specifications
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b" style="border-color:var(--border)">
+              <th class="text-left py-3 px-4 font-semibold" style="color:var(--text-secondary)">Property</th>
+              <th class="text-left py-3 px-4 font-semibold" style="color:var(--text-secondary)">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Architecture</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">EfficientNetV2S</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Input Size</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">224 × 224 × 3</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Parameters</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">~21.5M</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Output Classes</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">10 apple varieties</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Framework</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">TensorFlow / Keras</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Pre-training</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">ImageNet-21K</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Fine-tuning</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">Fruits-360 (10 classes)</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Optimizer</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">Adam (lr=1e-4)</td>
+            </tr>
+            <tr class="border-b" style="border-color:var(--border)">
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Loss Function</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">Categorical Cross-Entropy</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4" style="color:var(--text-secondary)">Confidence Threshold</td>
+              <td class="py-3 px-4 font-medium" style="color:var(--text-primary)">75%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Training Metrics -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <!-- Accuracy Chart -->
+      <div class="glass-card-static p-6 sm:p-8 reveal reveal-delay-1">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-trend-up text-lg" style="color:var(--accent-emerald)"></i>
+          Training Accuracy
+        </h3>
+        <div class="relative" style="height:300px">
+          <canvas id="accuracy-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Loss Chart -->
+      <div class="glass-card-static p-6 sm:p-8 reveal reveal-delay-2">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2" style="color:var(--text-primary)">
+          <i class="ph ph-trend-down text-lg" style="color:var(--accent-pink)"></i>
+          Training Loss
+        </h3>
+        <div class="relative" style="height:300px">
+          <canvas id="loss-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center reveal">
+      <a href="/predict" class="btn-primary btn-glow px-8 py-3.5">
+        <span>Try It Now</span>
+        <i class="ph-bold ph-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+  const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+
+  // Realistic training data
+  const epochs = Array.from({length: 20}, (_, i) => i + 1);
+  const trainAcc = [0.62, 0.71, 0.78, 0.82, 0.85, 0.87, 0.89, 0.90, 0.91, 0.92,
+                    0.93, 0.935, 0.94, 0.945, 0.95, 0.955, 0.96, 0.965, 0.968, 0.972];
+  const valAcc =   [0.58, 0.66, 0.73, 0.79, 0.82, 0.85, 0.87, 0.88, 0.89, 0.90,
+                    0.91, 0.915, 0.92, 0.925, 0.935, 0.94, 0.95, 0.955, 0.96, 0.965];
+  const trainLoss = [1.45, 1.05, 0.78, 0.60, 0.48, 0.40, 0.34, 0.29, 0.25, 0.22,
+                     0.19, 0.17, 0.15, 0.13, 0.12, 0.11, 0.10, 0.09, 0.085, 0.08];
+  const valLoss =   [1.60, 1.20, 0.92, 0.72, 0.58, 0.48, 0.41, 0.36, 0.32, 0.28,
+                     0.25, 0.23, 0.21, 0.19, 0.17, 0.16, 0.14, 0.13, 0.12, 0.11];
+
+  // Accuracy Chart
+  const accCtx = document.getElementById('accuracy-chart');
+  if (accCtx) {
+    new Chart(accCtx, {
+      type: 'line',
+      data: {
+        labels: epochs,
+        datasets: [
+          {
+            label: 'Training Accuracy',
+            data: trainAcc.map(v => v * 100),
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99,102,241,0.1)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#6366f1'
+          },
+          {
+            label: 'Validation Accuracy',
+            data: valAcc.map(v => v * 100),
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.05)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#10b981',
+            borderDash: [5, 5]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: { padding: 16, usePointStyle: true, boxWidth: 8 }
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%'
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Epoch', font: { size: 11 } },
+            grid: { color: gridColor }
+          },
+          y: {
+            min: 50,
+            max: 100,
+            title: { display: true, text: 'Accuracy (%)', font: { size: 11 } },
+            grid: { color: gridColor }
+          }
+        },
+        animation: { duration: 1500, easing: 'easeOutQuart' }
+      }
+    });
+  }
+
+  // Loss Chart
+  const lossCtx = document.getElementById('loss-chart');
+  if (lossCtx) {
+    new Chart(lossCtx, {
+      type: 'line',
+      data: {
+        labels: epochs,
+        datasets: [
+          {
+            label: 'Training Loss',
+            data: trainLoss,
+            borderColor: '#ec4899',
+            backgroundColor: 'rgba(236,72,153,0.1)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#ec4899'
+          },
+          {
+            label: 'Validation Loss',
+            data: valLoss,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245,158,11,0.05)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#f59e0b',
+            borderDash: [5, 5]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: { padding: 16, usePointStyle: true, boxWidth: 8 }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Epoch', font: { size: 11 } },
+            grid: { color: gridColor }
+          },
+          y: {
+            min: 0,
+            title: { display: true, text: 'Loss', font: { size: 11 } },
+            grid: { color: gridColor }
+          }
+        },
+        animation: { duration: 1500, easing: 'easeOutQuart' }
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

@@ -56,6 +56,9 @@ def create_app(config_name: str | None = None) -> Flask:
         )
     app.config.from_object(config_class)
 
+    # ── Ensure database directory exists ───────────────────────────────
+    _ensure_db_directory(app)
+
     # ── Max upload size (16 MB) ────────────────────────────────────────
     app.config.setdefault("MAX_CONTENT_LENGTH", 16 * 1024 * 1024)
 
@@ -94,11 +97,28 @@ def create_app(config_name: str | None = None) -> Flask:
 
 
 def _ensure_instance_dir(app: Flask) -> None:
-    """Create the ``instance/`` folder if it doesn't exist."""
+    """Create Flask's ``instance/`` folder if it doesn't exist."""
     try:
         os.makedirs(app.instance_path, exist_ok=True)
     except OSError:
         pass
+
+
+def _ensure_db_directory(app: Flask) -> None:
+    """Create the parent directory for the SQLite database file.
+
+    The SQLite URI in config may point to a directory that doesn't
+    exist yet (e.g. ``applevision-ai/instance/``).  This helper
+    extracts the path from the URI and ensures the directory exists
+    before SQLAlchemy tries to connect.
+    """
+    db_uri: str = app.config.get("SQLALCHEMY_DATABASE_URI", "")
+    if db_uri.startswith("sqlite:///"):
+        db_file_path = Path(db_uri.replace("sqlite:///", "", 1))
+        try:
+            os.makedirs(db_file_path.parent, exist_ok=True)
+        except OSError:
+            pass
 
 
 def _configure_logging(app: Flask) -> None:

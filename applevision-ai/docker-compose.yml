@@ -1,0 +1,75 @@
+# ==============================================================================
+# AppleVision AI – Docker Compose
+# ==============================================================================
+# Usage:
+#   docker-compose up          # Start all services
+#   docker-compose up -d       # Detached mode
+#   docker-compose down -v     # Stop and remove volumes
+# ==============================================================================
+
+version: "3.9"
+
+services:
+  # ── Web Application ────────────────────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: applevision-web
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - SECRET_KEY=${SECRET_KEY:-change-me-in-production}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-applevision}:${POSTGRES_PASSWORD:-applevision_secret}@db:5432/${POSTGRES_DB:-applevision_db}
+      - MODEL_PATH=${MODEL_PATH:-/app/model/apple_classifier_final.keras}
+      - LABELS_PATH=${LABELS_PATH:-/app/model/labels.json}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+    volumes:
+      - model_data:/app/model:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    networks:
+      - applevision-net
+
+  # ── PostgreSQL Database ────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: applevision-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-applevision}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-applevision_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-applevision_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-applevision} -d ${POSTGRES_DB:-applevision_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - applevision-net
+
+# ── Volumes ──────────────────────────────────────────────────────────────────
+volumes:
+  postgres_data:
+    driver: local
+  model_data:
+    driver: local
+
+# ── Networks ─────────────────────────────────────────────────────────────────
+networks:
+  applevision-net:
+    driver: bridge

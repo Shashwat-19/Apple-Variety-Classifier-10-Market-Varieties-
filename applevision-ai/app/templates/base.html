@@ -165,68 +165,158 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer-gradient mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        <!-- Brand -->
-        <div class="md:col-span-2">
-          <a href="/" class="flex items-center gap-2.5 mb-4">
-            <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
-              <i class="ph-bold ph-leaf text-white text-sm"></i>
+  <footer class="mt-auto relative overflow-hidden" style="background: var(--bg-primary); border-top: 1px solid var(--border);">
+    <!-- Decorative top gradient line -->
+    <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, #ec4899, transparent);"></div>
+
+    <!-- Main Footer Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 mb-12">
+
+        <!-- Brand Column -->
+        <div class="md:col-span-5 lg:col-span-4">
+          <a href="/" class="flex items-center gap-2.5 mb-5 group w-fit">
+            <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/50 group-hover:scale-105 transition-all duration-300">
+              <i class="ph-bold ph-leaf text-white text-lg"></i>
             </div>
-            <span class="text-base font-bold" style="color:var(--text-primary)">
+            <span class="text-xl font-bold tracking-tight" style="color:var(--text-primary)">
               Apple<span class="gradient-text">Vision</span> AI
             </span>
           </a>
-          <p class="text-sm leading-relaxed max-w-md" style="color:var(--text-secondary)">
-            AI-powered apple variety classification using EfficientNetV2S. Identify 10 market apple varieties with industry-leading accuracy.
+          <p class="text-sm leading-relaxed max-w-sm mb-6" style="color:var(--text-secondary)">
+            Production-grade apple variety classification powered by EfficientNetV2S deep learning. Identify 10 market varieties with 96%+ accuracy in real time.
           </p>
-          <div class="flex items-center gap-3 mt-4">
-            <a href="https://github.com/Shashwat-19" target="_blank" rel="noopener" class="theme-toggle w-9 h-9 text-sm" aria-label="GitHub">
-              <i class="ph ph-github-logo"></i>
+
+          <!-- Social Links -->
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/Shashwat-19" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+               style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);"
+               onmouseenter="this.style.borderColor='#6366f1'; this.style.color='#818cf8'; this.style.boxShadow='0 0 20px rgba(99,102,241,0.15)'"
+               onmouseleave="this.style.borderColor='var(--glass-border)'; this.style.color='var(--text-secondary)'; this.style.boxShadow='none'"
+               aria-label="GitHub">
+              <i class="ph ph-github-logo text-lg"></i>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="theme-toggle w-9 h-9 text-sm" aria-label="LinkedIn">
-              <i class="ph ph-linkedin-logo"></i>
+            <a href="https://www.linkedin.com/in/shashwat-19/" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+               style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);"
+               onmouseenter="this.style.borderColor='#6366f1'; this.style.color='#818cf8'; this.style.boxShadow='0 0 20px rgba(99,102,241,0.15)'"
+               onmouseleave="this.style.borderColor='var(--glass-border)'; this.style.color='var(--text-secondary)'; this.style.boxShadow='none'"
+               aria-label="LinkedIn">
+              <i class="ph ph-linkedin-logo text-lg"></i>
             </a>
-            <a href="mailto:contact@applevision.ai" class="theme-toggle w-9 h-9 text-sm" aria-label="Email">
-              <i class="ph ph-envelope"></i>
+            <a href="mailto:shashwat.official.19@gmail.com"
+               class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+               style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);"
+               onmouseenter="this.style.borderColor='#8b5cf6'; this.style.color='#a78bfa'; this.style.boxShadow='0 0 20px rgba(139,92,246,0.15)'"
+               onmouseleave="this.style.borderColor='var(--glass-border)'; this.style.color='var(--text-secondary)'; this.style.boxShadow='none'"
+               aria-label="Email">
+              <i class="ph ph-envelope-simple text-lg"></i>
+            </a>
+            <a href="https://x.com/Shashwat_191" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+               style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);"
+               onmouseenter="this.style.borderColor='#ec4899'; this.style.color='#f472b6'; this.style.boxShadow='0 0 20px rgba(236,72,153,0.15)'"
+               onmouseleave="this.style.borderColor='var(--glass-border)'; this.style.color='var(--text-secondary)'; this.style.boxShadow='none'"
+               aria-label="X (Twitter)">
+              <i class="ph ph-x-logo text-lg"></i>
             </a>
           </div>
         </div>
 
-        <!-- Quick Links -->
-        <div>
-          <h4 class="text-sm font-semibold mb-4" style="color:var(--text-primary)">Product</h4>
-          <ul class="space-y-2.5">
-            <li><a href="/predict" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Classify</a></li>
-            <li><a href="/analytics" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Analytics</a></li>
-            <li><a href="/api-docs" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">API Docs</a></li>
-            <li><a href="/about" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">About Model</a></li>
-          </ul>
-        </div>
+        <!-- Link Columns -->
+        <div class="md:col-span-7 lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
 
-        <!-- Resources -->
-        <div>
-          <h4 class="text-sm font-semibold mb-4" style="color:var(--text-primary)">Resources</h4>
-          <ul class="space-y-2.5">
-            <li><a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-" target="_blank" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">GitHub Repo</a></li>
-            <li><a href="/contact" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Contact</a></li>
-            <li><a href="https://www.kaggle.com/datasets/moltean/fruits" target="_blank" class="text-sm hover:text-indigo-400 transition-colors" style="color:var(--text-secondary)">Dataset</a></li>
-          </ul>
+          <!-- Product -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-5" style="color: var(--text-tertiary);">Product</h4>
+            <ul class="space-y-3">
+              <li><a href="/predict" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-scan text-xs opacity-50"></i> Classify
+              </a></li>
+              <li><a href="/analytics" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-chart-line-up text-xs opacity-50"></i> Analytics
+              </a></li>
+              <li><a href="/api-docs" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-terminal text-xs opacity-50"></i> API Reference
+              </a></li>
+              <li><a href="/about" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-brain text-xs opacity-50"></i> Model Details
+              </a></li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-5" style="color: var(--text-tertiary);">Resources</h4>
+            <ul class="space-y-3">
+              <li><a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-github-logo text-xs opacity-50"></i> Source Code
+              </a></li>
+              <li><a href="https://www.kaggle.com/datasets/moltean/fruits" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-database text-xs opacity-50"></i> Fruits-360 Dataset
+              </a></li>
+              <li><a href="https://arxiv.org/abs/2104.00298" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-article text-xs opacity-50"></i> EfficientNetV2 Paper
+              </a></li>
+              <li><a href="/api/health" target="_blank" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-heartbeat text-xs opacity-50"></i> System Status
+              </a></li>
+            </ul>
+          </div>
+
+          <!-- Developer -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-5" style="color: var(--text-tertiary);">Developer</h4>
+            <ul class="space-y-3">
+              <li><a href="/contact" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-chat-dots text-xs opacity-50"></i> Get in Touch
+              </a></li>
+              <li><a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-/issues" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-bug text-xs opacity-50"></i> Report a Bug
+              </a></li>
+              <li><a href="https://github.com/Shashwat-19/Apple-Variety-Classifier-10-Market-Varieties-/blob/main/LICENSE" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-scales text-xs opacity-50"></i> Apache 2.0 License
+              </a></li>
+              <li><a href="https://github.com/Shashwat-19" target="_blank" rel="noopener" class="footer-link text-sm" style="color:var(--text-secondary)">
+                <i class="ph ph-user-circle text-xs opacity-50"></i> @Shashwat-19
+              </a></li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color:var(--border)">
-        <p class="text-xs" style="color:var(--text-tertiary)">
-          &copy; 2025 AppleVision AI. Built by <a href="https://github.com/Shashwat-19" target="_blank" class="hover:text-indigo-400 transition-colors">Shashwat</a>.
-        </p>
-        <div class="flex items-center gap-2 text-xs" style="color:var(--text-tertiary)">
-          <span>Built with</span>
-          <div class="flex items-center gap-1.5">
-            <span class="tech-badge text-xs py-0.5 px-2">Flask</span>
-            <span class="tech-badge text-xs py-0.5 px-2">TensorFlow</span>
-            <span class="tech-badge text-xs py-0.5 px-2">Tailwind</span>
-          </div>
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-5" style="border-top: 1px solid var(--border);">
+        <!-- Copyright -->
+        <div class="flex items-center gap-3">
+          <p class="text-xs" style="color:var(--text-tertiary)">
+            &copy; 2025 AppleVision AI &middot; Crafted by
+            <a href="https://github.com/Shashwat-19" target="_blank" rel="noopener" class="font-medium transition-colors hover:text-indigo-400" style="color:var(--text-secondary)">Shashwat</a>
+          </p>
+          <span class="hidden sm:inline-block w-1 h-1 rounded-full" style="background: var(--text-tertiary);"></span>
+          <span class="hidden sm:inline text-xs" style="color:var(--text-tertiary)">v1.0.0</span>
+        </div>
+
+        <!-- Tech Stack Badges -->
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <span class="text-[10px] uppercase tracking-widest mr-1" style="color: var(--text-tertiary);">Built with</span>
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium py-1 px-2.5 rounded-md transition-all duration-200"
+                style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);">
+            <i class="ph ph-flask text-xs" style="color: #6366f1;"></i> Flask
+          </span>
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium py-1 px-2.5 rounded-md transition-all duration-200"
+                style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);">
+            <i class="ph ph-brain text-xs" style="color: #ff6f00;"></i> TensorFlow
+          </span>
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium py-1 px-2.5 rounded-md transition-all duration-200"
+                style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);">
+            <i class="ph ph-wind text-xs" style="color: #38bdf8;"></i> Tailwind
+          </span>
+          <span class="inline-flex items-center gap-1 text-[11px] font-medium py-1 px-2.5 rounded-md transition-all duration-200"
+                style="background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary);">
+            <i class="ph ph-chart-pie text-xs" style="color: #f472b6;"></i> Chart.js
+          </span>
         </div>
       </div>
     </div>

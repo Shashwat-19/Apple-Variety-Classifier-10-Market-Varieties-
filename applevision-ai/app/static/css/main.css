@@ -814,9 +814,16 @@ body {
 }
 
 /* ---------- Footer ---------- */
-.footer-gradient {
-  background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.03));
-  border-top: 1px solid var(--border);
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #818cf8 !important;
+  transform: translateX(3px);
 }
 
 /* ---------- Responsive ---------- */

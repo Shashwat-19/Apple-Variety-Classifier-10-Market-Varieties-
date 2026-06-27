@@ -205,6 +205,35 @@ def stats() -> tuple[dict[str, Any], int]:
 
 
 # ===========================================================================
+# GET /api/analytics
+# ===========================================================================
+@api_bp.route("/analytics", methods=["GET"])
+@limiter.limit("200/hour")
+def analytics() -> tuple[dict[str, Any], int]:
+    """Return analytics data for the dashboard in the exact shape the JS expects.
+
+    The response contains:
+        - total_predictions: int
+        - today_predictions: int
+        - average_confidence: float (percentage with 1 decimal, e.g. 96.4)
+        - most_predicted: str | null
+        - variety_distribution: {label: count, …}
+        - daily_predictions: [{date: "YYYY-MM-DD", count: int}, …] (30 days)
+    """
+    try:
+        data = AnalyticsService.get_analytics_payload()
+    except Exception as exc:
+        logger.exception("Failed to compute analytics payload")
+        return jsonify({
+            "success": False,
+            "error": "Analytics computation failed",
+            "message": str(exc),
+        }), 500
+
+    return jsonify({"success": True, **data}), 200
+
+
+# ===========================================================================
 # GET /api/health
 # ===========================================================================
 @api_bp.route("/health", methods=["GET"])

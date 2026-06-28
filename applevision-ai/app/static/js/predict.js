@@ -195,6 +195,10 @@
         resultData = data;
         renderResults(data);
         Toast.success('Analysis complete!');
+
+        /* Notify the analytics module so it can refresh live data.
+           This is a no-op if the analytics page is not currently open. */
+        window.dispatchEvent(new CustomEvent('predictionSaved', { detail: data }));
       }, 300);
 
     } catch (error) {

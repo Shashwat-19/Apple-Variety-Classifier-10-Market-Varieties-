@@ -1,0 +1,59 @@
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+
+# Git
+.git/
+.github/
+
+# Environment variables (secrets)
+.env
+.env.local
+.env.production
+
+# SQLite databases (ephemeral on Vercel anyway)
+instance/
+*.db
+*.sqlite3
+
+# IDE
+.idea/
+.vscode/
+.DS_Store
+
+# Docker (not needed on Vercel)
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+
+# Tests
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Conversion scripts (one-time use)
+convert_to_tflite.py
+convert_to_onnx.py
+
+# Logs
+*.log
+
+# Large files not needed for deployment
+*.keras
+*.h5
+*.pb
+*.tflite
+
+# Docs
+README.md
+.env.example

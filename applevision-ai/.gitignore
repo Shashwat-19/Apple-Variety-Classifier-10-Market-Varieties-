@@ -45,11 +45,10 @@ coverage.xml
 *~
 .DS_Store
 
-# ── ML Model Files (large) ──────────────────────────────────────────────────
+# ── ML Model Files (large – only Keras/H5; TFLite is kept for deployment) ──
 *.keras
 *.h5
 *.pb
-*.tflite
 saved_model/
 
 # ── Docker ───────────────────────────────────────────────────────────────────

@@ -20,12 +20,26 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 # Repo root (one level above applevision-ai/)
 _REPO_ROOT = _PROJECT_ROOT.parent
 
-# Default paths to ML artefacts that live in the sibling streamlit dir
-_DEFAULT_MODEL_PATH = str(
-    _REPO_ROOT / "apple-variety-streamlit" / "model" / "apple_classifier_final.keras"
-)
+# Default paths to ML artefacts.
+# Priority: ONNX (~30 MB runtime) > TFLite > Keras (fallback for local dev).
+_ONNX_MODEL_PATH = _PROJECT_ROOT / "ml" / "model" / "apple_classifier.onnx"
+_TFLITE_MODEL_PATH = _PROJECT_ROOT / "ml" / "model" / "apple_classifier.tflite"
+_KERAS_MODEL_PATH = _REPO_ROOT / "apple-variety-streamlit" / "model" / "apple_classifier_final.keras"
+
+
+def _resolve_model_path() -> str:
+    """Pick the first model that exists on disk."""
+    for p in (_ONNX_MODEL_PATH, _TFLITE_MODEL_PATH, _KERAS_MODEL_PATH):
+        if p.exists():
+            return str(p)
+    return str(_ONNX_MODEL_PATH)  # will warn at load time
+
+
+_DEFAULT_MODEL_PATH = os.getenv("MODEL_PATH", _resolve_model_path())
 _DEFAULT_LABELS_PATH = str(
-    _REPO_ROOT / "apple-variety-streamlit" / "labels.json"
+    _PROJECT_ROOT / "ml" / "labels.json"
+    if (_PROJECT_ROOT / "ml" / "labels.json").exists()
+    else _REPO_ROOT / "apple-variety-streamlit" / "labels.json"
 )
 
 

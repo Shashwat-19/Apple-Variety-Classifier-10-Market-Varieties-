@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "applevision-ai/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "100mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/applevision-ai/app/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/applevision-ai/wsgi.py"
+    }
+  ]
+}

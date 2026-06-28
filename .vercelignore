@@ -1,0 +1,51 @@
+# ── Vercel Ignore (repo root) ─────────────────────────────────────────────
+# Only the applevision-ai/ Flask app should be deployed.
+# Everything else is excluded to keep the bundle small.
+
+# Root-level app files (old Streamlit/simple Flask app — NOT deployed)
+app.py
+Dockerfile
+requirements.flask.txt
+
+# Streamlit app (separate deployment target)
+apple-variety-streamlit/
+
+# Jupyter notebook (3.4 MB, not needed at runtime)
+*.ipynb
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Git internals
+.git/
+.github/
+
+# Large model files (the ONNX model in applevision-ai/ml/ IS included)
+*.keras
+*.h5
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+.env.local
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Tests
+tests/
+.pytest_cache/
+
+# Logs
+*.log
+
+# Docs (not needed at runtime)
+prompt.md
+LICENSE

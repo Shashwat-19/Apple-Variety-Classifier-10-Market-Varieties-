@@ -1,5 +1,8 @@
 # =============================================================================
-# AppleVision AI - Python Dependencies
+# AppleVision AI - Python Dependencies (Vercel / Production)
+#
+# Uses onnxruntime (~30 MB) instead of tensorflow (~1,800 MB) to stay
+# within Vercel's 250 MB serverless function bundle limit.
 # =============================================================================
 
 # --- Core Framework ---
@@ -9,18 +12,17 @@ python-dotenv>=1.0.0
 # --- Database ---
 Flask-SQLAlchemy>=3.1.0,<4.0.0
 SQLAlchemy>=2.0.0,<3.0.0
-psycopg2-binary>=2.9.0        # PostgreSQL driver (prod)
 
 # --- API / Validation ---
 pydantic>=2.0.0,<3.0.0
-marshmallow>=3.20.0,<4.0.0
 
 # --- Security & Middleware ---
 Flask-CORS>=4.0.0,<5.0.0
 Flask-Limiter>=3.5.0,<4.0.0
 
-# --- ML / AI ---
-tensorflow>=2.15.0
+# --- ML / AI (lightweight) ---
+# onnxruntime is ~30 MB vs tensorflow's ~1,800 MB
+onnxruntime>=1.17.0
 numpy>=1.24.0
 Pillow>=10.0.0
 

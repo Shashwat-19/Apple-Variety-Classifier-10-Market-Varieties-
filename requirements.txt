@@ -1,6 +1,34 @@
-tensorflow>=2.13
-opencv-python
-numpy
-matplotlib
-scikit-learn
-tqdm
+# =============================================================================
+# AppleVision AI — Production Dependencies (Vercel Deployment)
+#
+# This file is used by Vercel's @vercel/python builder.
+# Uses onnxruntime (~30 MB) instead of tensorflow (~1,800 MB).
+#
+# The original training dependencies are in requirements.training.txt.
+# =============================================================================
+
+# --- Core Framework ---
+Flask>=3.0.0,<4.0.0
+python-dotenv>=1.0.0
+
+# --- Database ---
+Flask-SQLAlchemy>=3.1.0,<4.0.0
+SQLAlchemy>=2.0.0,<3.0.0
+
+# --- API / Validation ---
+pydantic>=2.0.0,<3.0.0
+
+# --- Security & Middleware ---
+Flask-CORS>=4.0.0,<5.0.0
+Flask-Limiter>=3.5.0,<4.0.0
+
+# --- ML / AI (lightweight) ---
+onnxruntime>=1.17.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# --- Production Server ---
+gunicorn>=21.2.0
+
+# --- Utilities ---
+python-dateutil>=2.8.0

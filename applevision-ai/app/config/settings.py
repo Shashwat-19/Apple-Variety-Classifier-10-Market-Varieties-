@@ -9,7 +9,11 @@ from environment variables with safe defaults for local development.
 from __future__ import annotations
 
 import os
+import tempfile
 from pathlib import Path
+
+# Vercel sets this env var automatically in its serverless runtime.
+_IS_VERCEL = bool(os.getenv("VERCEL", ""))
 
 # ---------------------------------------------------------------------------
 # Resolve key directories once at import time
@@ -96,9 +100,16 @@ class ProductionConfig(BaseConfig):
     # In production a real SECRET_KEY **must** be set via env var.
     SECRET_KEY: str = os.environ.get("SECRET_KEY", "CHANGE-ME-NOW")
 
+    # Vercel's filesystem is read-only except /tmp/.
+    # Use /tmp/ for SQLite when running on Vercel.
+    _DB_PATH = (
+        os.path.join(tempfile.gettempdir(), "applevision_prod.db")
+        if _IS_VERCEL
+        else str(_PROJECT_ROOT / "instance" / "applevision_prod.db")
+    )
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
         "DATABASE_URL",
-        f"sqlite:///{_PROJECT_ROOT / 'instance' / 'applevision_prod.db'}",
+        f"sqlite:///{_DB_PATH}",
     )
 
     # Stricter rate limits for production
